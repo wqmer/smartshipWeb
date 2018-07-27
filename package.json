@@ -10,7 +10,7 @@
   "author": "Kimmy",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "node server/server.js & node server/api ",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server & node server/api",

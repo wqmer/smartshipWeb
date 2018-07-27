@@ -4,7 +4,7 @@ import { Button, Avatar, Tag } from 'antd';
 import TweenOne from 'rc-tween-one/lib';
 import BannerAnim, { Element } from 'rc-banner-anim/lib';
 
-import MyHeader from './header'
+// import MyHeader from './header'
 import MyFooter from './footer';
 
 
@@ -15,7 +15,6 @@ class ComponentHome extends Component {
   render() {
     return (
 	    <Layout>
-		  <MyHeader/>
 	      <Content>
 		    <BannerAnim prefixCls="banner-user">
 	          <Element prefixCls="banner-user-elem" key="0">

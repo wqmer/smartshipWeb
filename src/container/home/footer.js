@@ -10,5 +10,4 @@ class ComponentFooter extends Component {
     );
   }
 }
-
 export default ComponentFooter;

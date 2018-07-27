@@ -4,8 +4,8 @@ import { Button, Avatar, Tag } from 'antd';
 import TweenOne from 'rc-tween-one/lib';
 import BannerAnim, { Element } from 'rc-banner-anim/lib';
 
-import ComponentHeader from './header';
-import ComponentFooter from './footer';
+import Header from './header'
+import Footer from './footer';
 
 
 const BgElement = Element.BgElement;
@@ -15,7 +15,7 @@ class ComponentHome extends Component {
   render() {
     return (
 	    <Layout>
-		  <ComponentHeader></ComponentHeader>
+		  <Header/>
 	      <Content>
 		    <BannerAnim prefixCls="banner-user">
 	          <Element prefixCls="banner-user-elem" key="0">
@@ -70,7 +70,7 @@ class ComponentHome extends Component {
 			  </div>
 		    </div>
 		  </Content>
-		  <ComponentFooter></ComponentFooter>
+		  <Footer/>
 		</Layout>
     );
   }

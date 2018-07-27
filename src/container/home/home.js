@@ -5,7 +5,7 @@ import TweenOne from 'rc-tween-one/lib';
 import BannerAnim, { Element } from 'rc-banner-anim/lib';
 
 // import MyHeader from './header'
-import MyFooter from './footer';
+// import MyFooter from './footer';
 
 
 const BgElement = Element.BgElement;
@@ -69,7 +69,6 @@ class ComponentHome extends Component {
 			  </div>
 		    </div>
 		  </Content>
-		  <MyFooter/>
 		</Layout>
     );
   }

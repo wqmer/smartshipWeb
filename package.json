@@ -15,7 +15,7 @@
     "dev-server": "webpack-dev-server & node server/api",
     "api-server": "nodemon server/api",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
-    "heroku-postbuild": "yarn run build:prod"
+    "heroku-postbuild": "yarn run build:dev"
   },
   "dependencies": {
     "antd": "^3.6.2",

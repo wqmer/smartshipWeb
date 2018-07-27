@@ -3,6 +3,8 @@ import { Layout, Row, Col } from 'antd';
 import { Button, Avatar, Tag } from 'antd';
 import TweenOne from 'rc-tween-one/lib';
 import BannerAnim, { Element } from 'rc-banner-anim/lib';
+
+import ComponentHeader from './header';
 import ComponentFooter from './footer';
 
 

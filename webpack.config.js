@@ -52,6 +52,7 @@ module.exports = (env) => {
     devServer: {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
+      port: process.env.PORT || 9000,
       publicPath: '/dist/',
       proxy: {
         '/api':    {

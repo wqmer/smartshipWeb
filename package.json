@@ -2,10 +2,10 @@
   "name": "cryptocoin-trade-react-app",
   "version": "1.0.0",
   "engines": {
-              "node": "8.11.1",
-              "yarn": "1.7.0",
-              "npm": "5.6.0 "
-             },
+    "node": "8.11.1",
+    "yarn": "1.7.0",
+    "npm": "5.6.0 "
+  },
   "main": "index.js",
   "author": "Kimmy",
   "license": "MIT",

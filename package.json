@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "engines": {
     "node": "8.11.1",
-    "yarn": "1.7.0",
     "npm": "5.6.0 "
   },
   "main": "index.js",
   "author": "Kimmy",
   "license": "MIT",
   "scripts": {
-    "start": "yarn run dev-server",
+    "start": "webpack-dev-server & node server/api",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server & node server/api",

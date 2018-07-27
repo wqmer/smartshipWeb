@@ -54,12 +54,12 @@ module.exports = (env) => {
       historyApiFallback: true,
       port: process.env.PORT || 9000,
       publicPath: '/dist/',
-      proxy: {
-        '/api':    {
-                     target: 'http://localhost:3030',
-                     pathRewrite: {'^/api' : ''}
-        }    
-      }
+      // proxy: {
+      //   '/api':    {
+      //                target: 'http://localhost:3030',
+      //                pathRewrite: {'^/api' : ''}
+      //   }    
+      // }
     }
   };
 };

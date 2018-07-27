@@ -12,7 +12,7 @@
     "start": "yarn run dev-server",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "dev-server": "webpack-dev-server & node server/api",
+    "dev-server": "webpack-dev-server --port $PORT --host 0.0.0.0 & node server/api",
     "api-server": "nodemon server/api",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "heroku-postbuild": "yarn run build:prod"

@@ -1,12 +1,4 @@
 
-// import path from 'path'
-// import Express from 'express'
-// import httpProxy from 'http-proxy'
-// import compression from 'compression'
-// import connectHistoryApiFallback from 'connect-history-api-fallback'
-// import config from '../config/config'
-// import path from 'path'
-
 const path = require('path');
 const express = require('express');
 const app = express();
@@ -22,6 +14,16 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
   console.log('Server is up!');
 });
+
+
+
+// import path from 'path'
+// import Express from 'express'
+// import httpProxy from 'http-proxy'
+// import compression from 'compression'
+// import connectHistoryApiFallback from 'connect-history-api-fallback'
+// import config from '../config/config'
+// import path from 'path'
 
 
 // const port = config.port;

@@ -6,7 +6,7 @@ import {get, post} from '../util/fetch'
 export function* getAllbalance() {
      yield put({type: gobal.FETCH_START});
        try {
-         return yield call(get, '/user/getAllBalance');
+         return yield call(get, '/user/getAllAsset');
        } catch (err) {
         //  console.log('Error happened!')
        } finally {

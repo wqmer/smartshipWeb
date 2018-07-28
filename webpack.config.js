@@ -52,14 +52,17 @@ module.exports = (env) => {
     devServer: {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
-      port: process.env.PORT || 9000,
       publicPath: '/dist/',
-      // proxy: {
-      //   '/api':    {
-      //                target: 'http://localhost:3030',
-      //                pathRewrite: {'^/api' : ''}
-      //   }    
-      // }
+      proxy: {
+        '/api':    {
+            
+                    //  target: 'http://localhost:3030',
+                     target: 'https://kimmy-webapp-api-server.herokuapp.com',
+                     pathRewrite: {'^/api' : ''},
+                     changeOrigin: true,
+                     secure: false
+        }    
+      }
     }
   };
 };

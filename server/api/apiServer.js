@@ -24,7 +24,7 @@ app.use('/admin', require('./admin'));
 
 mongoose.Promise = require('bluebird');
 
-mongoose.connect( process.env.MONGODB_URI ||`mongodb://${config.dbHost}:${config.dbPort}/Currency`, function (err) {
+mongoose.connect( process.env.MONGODB_URI ||`mongodb://${config.dbHost}:${config.dbPort}/Currency`, { useNewUrlParser: true } ,function (err) {
 // mongoose.connect( 'mongodb://heroku_63w3spxm:bman6bohh381fs06da05r66k4h@ds255451.mlab.com:55451/heroku_63w3spxm', function (err) {
     if (err) {
         console.log(err, "Database disconnected");

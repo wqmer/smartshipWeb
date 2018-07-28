@@ -10,11 +10,11 @@
   "author": "Kimmy",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --port 3000 --host 0.0.0.0 ",
+    "start": "webpack-dev-server",
     "product": "node server/server.js & node server/api ",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "dev-server": "webpack-dev-server --port 3000 --host 0.0.0.0",
+    "dev-server": "webpack-dev-server",
     "api-server": "nodemon server/api",
     "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
     "heroku-postbuild": "yarn run build:prod"

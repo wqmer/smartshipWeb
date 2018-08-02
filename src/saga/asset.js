@@ -11,7 +11,7 @@ export function* getAllbalance() {
         //  console.log('Error happened!')
        } finally {
         yield put({type: gobal.FETCH_END});
-        //  console.log('Finish fetching')
+        // console.log('Finish fetching')
        }
 }
 

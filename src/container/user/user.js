@@ -5,14 +5,15 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import balance from './asset'
+import test from './components/test'
 // import Sidebar from "./components/sidebar"
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer} = Layout;
 const { SubMenu } = Menu;
 
 const submenus = [
     {name: 'account', iconType: 'user', children :[{url: '/', name: 'profile'}, {url: '/security', name: 'security'}]},
-    {name: 'asset', iconType: 'wallet', children  :[{url: '/balance', name: 'balance'}, {url: '/deposit', name: 'deposit'}]},
+    {name: 'asset', iconType: 'wallet', children  :[{url: '/balance', name: 'balance'} ]},
     {name: 'setting', iconType: 'setting', children  :[{url: '/api', name: 'api'}]},
 ];
 
@@ -70,14 +71,18 @@ class user extends Component{
                                  onClick={this.toggle}
                                />
                         </Header>
-                        <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+                        <Content style={{ margin: '24px 16px 0', padding: 24, background: '#fff', overflow: 'initial' }}>
                                 <div>
                                     <Switch> 
                                             <Route exact path ={url} />
                                             <Route path ={`${url}/balance`} component={balance}/>
+                                            <Route path ={`${url}/api`} component={test}/>
                                     </Switch>
                                 </div>
                         </Content>
+                        <Footer style={{ textAlign: 'center' }}>
+                                 Ant Design ©2018 Created by Ant UED
+                       </Footer>
                 </Layout>
             </Layout>
             </div>

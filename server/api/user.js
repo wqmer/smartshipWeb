@@ -4,32 +4,30 @@ import Balance from '../../mongoDB/models'
 import bodyParser from 'body-parser'
 const router = Express.Router();
 
-// get all balance
-router.get('/getAllBalance', (req, res) => {
-    Balance.find({}).then( data => {
+// get all Asset
+router.get('/getAllAsset', (req, res) => {
+    Asset.find({}).then( data => {
       responseClient(res, 200, 0, 'Get request successfully', data);
     } , (e) => {
       responseClient(res);
     });
 });
 
-
-// get one balance
-router.get('/getBalance/:id', (req, res) => {
+// get one Asset
+router.get('/getAsset/:id', (req, res) => {
     var id = req.params.id;  
-    Balance.findOne({name: id}).then((data) => {
+    Asset.findOne({name: id}).then((data) => {
       responseClient(res, 200, 0, 'Get request successfully', data);
     } , (e) => {
       responseClient(res);
     });
 });
   
-
 // deposit
 router.post('/deposit', (req, res) => {
      const coinType = req.body.name ;
      const despoitAmount = req.body.amount
-     Balance.findOneAndUpdate({name:coinType},{ $inc: {amount:despoitAmount} },{new: true})
+     Asset.findOneAndUpdate({name:coinType},{ $inc: {amount:despoitAmount} },{new: true})
        .then(result=>{
            responseClient(res, 200, 0,'Deposit successfully',result)
        }).cancel(err=>{
@@ -43,7 +41,7 @@ router.post('/deposit', (req, res) => {
 router.post('/withdraw', (req, res) => {
       const coinType = req.body.name ;
       const despoitAmount = -req.body.amount
-      Balance.findOneAndUpdate({name:coinType},{ $inc: {amount:despoitAmount} },{new: true})
+      Asset.findOneAndUpdate({name:coinType},{ $inc: {amount:despoitAmount} },{new: true})
         .then(result=>{
             responseClient(res, 200, 0,'Deposit successfully',result)
         }).cancel(err=>{
@@ -56,7 +54,6 @@ router.post('/withdraw', (req, res) => {
 // update one currency
 // app.patch('/updateCurrency/:id', (req, res) => {
 //   var id = req.params.id;
-
 
 //  Currency.findByIdAndUpdate(id, req.body, {new: true}).then((currency) => {
 //     if (!currency) {

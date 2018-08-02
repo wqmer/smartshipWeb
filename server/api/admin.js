@@ -5,11 +5,11 @@ import bodyParser from 'body-parser'
 const router = Express.Router();
 
 router.post('/addcrypto', (req, res) => {
-    let balance = new Balance({
+    let asset = new Asset({
         name : req.body.name,
         amount: 0
     });
-        balance.save().then( data=>{
+        asset.save().then( data=>{
         responseClient(res,200,0,'add new crypto successfully', data)
     }).cancel(err=>{
         console.log(err);

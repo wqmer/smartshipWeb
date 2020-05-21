@@ -21,11 +21,30 @@ module.exports = (env) => {
       filename: 'bundle.js'
     },
     module: {
-      rules: [{
+      rules: [
+      {
         loader: 'babel-loader',
         test: /\.js$/,
         exclude: /node_modules/
-      }, {
+      }, 
+
+      {
+        test: /\.less$/,
+        use: [{
+          loader: 'style-loader'
+        }, {
+          loader: 'css-loader', options: {
+            sourceMap: true
+          }
+        }, {
+          loader: 'less-loader', options: {
+            sourceMap: true,
+            javascriptEnabled: true 
+          }
+        }]
+      },
+
+      {
         test: /\.s?css$/,
         use: CSSExtract.extract({
           use: [
@@ -40,10 +59,14 @@ module.exports = (env) => {
               options: {
                 sourceMap: true
               }
-            }
-          ]
+            },
+
+          ]   
         })
-      }]
+      },
+
+
+  ]
     },
     plugins: [
       CSSExtract,
@@ -56,7 +79,8 @@ module.exports = (env) => {
       publicPath: '/dist/',
       proxy: {
         '/api':    {
-                     target: 'https://kimmy-webapp-api-server.herokuapp.com',
+                    //  target: 'https://kimmy-webapp-api-server.herokuapp.com',
+                     target:  'http://localhost:8000/',
                      pathRewrite: {'^/api' : ''},
                      changeOrigin: true,
                      secure: false

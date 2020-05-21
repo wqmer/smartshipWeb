@@ -21,8 +21,8 @@ app.use('/', connectHistoryApiFallback());
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(publicPath, 'index.html'));
-});//this router place in the final lane
-
+});
+//this router place in the final line
 
 app.listen(port, () => {
   console.log(`Server is up on port : ${port}`);

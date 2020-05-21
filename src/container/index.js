@@ -1,28 +1,77 @@
-import React , { Component }  from 'react';
+import React, { Component } from 'react';
+import 'ant-design-pro/dist/ant-design-pro.css'
+import { message, BackTop, notification, Tabs, PageHeader, Input, Dropdown, Button, Avatar, Layout, Menu, Breadcrumb, Icon, Badge } from 'antd';
 import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
-import ComponentHome from './home/home';
-import ComponentUser from './user/user';
-import asset from './user/asset';
+import ComopnentLogin from './shipping_user/login_page';
+import ComponentHome from './shopping/homePage';
+import ComponentUser from './seller/homePage';
+import Component_ship_user from './shipping_user/homePage';
+import NotFound from '../components/notFound'
+import PrivateRoute from '../router/PrivateRoute';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { actions as user_account_actions } from '../reducers/shipping_platform/user'
+
 
 
 export const history = createHistory();
 
-const AppRouter= () => (
+class AppIndex extends Component {
+    constructor(props) {
+        super(props);
+    }
 
-<Router history={history} >
-	  <div>
-      <Switch>
-        {/* <Route exact path="/" component={test} /> */}
-	          <Route exact path="/" component={ComponentHome} />
-            <Route path="/user" component={ComponentUser} />
+    state = {}
+    
+    static getDerivedStateFromProps = (props, state) => {
+        if (props.message && props.status_code === 0) {
+          message.success(props.message)
+        }
+        if (props.message && props.status_code === 1) {
+          let config = {
+            message: '远程服务器报错',
+            description: props.message,
+          }
+          notification.error(config)
+        }
+        return null
+    }
 
-            {/* <Route   path="/test" component={testDashboard} /> */}
-            {/* <Route exact path="/user/balance" component={asset} /> */} */}
-      </Switch>
-	  </div>
-</Router>
-  
-)
 
-export default AppRouter;
+    render() {
+        return (
+            <Router history={history} >
+                <div>
+                    <Switch>
+                        {/* <Route path="/shop" component={ComponentHome} /> */}
+                        {/* <Route exact path="/" component={ComponentUser} /> */}
+                        <Route exact path="/login" component={ComopnentLogin} />
+                        <Route path="/user" component={Component_ship_user} />
+                        {/* <Route path="/seller" component={ComponentUser} />     */}
+                        <Route component={NotFound} />
+                        {/* <Route path="/test" component={testDashboard} /> */}
+                    </Switch>
+                </div>
+            </Router>
+        )
+    }
+}
+
+function mapStateToProps(state) {
+    return {
+        status_code: state.globalState.status_code,
+        message: state.globalState.message,
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+    }
+}
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(AppIndex)

@@ -4,7 +4,14 @@ import QueueAnim from 'rc-queue-anim';
 import 'antd/dist/antd.css';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {Menu, Dropdown, Button ,Icon, Table , Divider} from 'antd';
+import {
+  DeleteOutlined,
+  DownOutlined,
+  PaperClipOutlined,
+  QuestionCircleFilled,
+  SyncOutlined,
+} from '@ant-design/icons';
+import { Menu, Dropdown, Button, Table, Divider } from 'antd';
 import { Popconfirm, message} from 'antd';
 import Animate from 'rc-animate';
 import { TweenOneGroup } from 'rc-tween-one';
@@ -159,20 +166,20 @@ const columns = [
           <span >
             {/* <Button>UPS gournd< Icon type="down" /> </Button> */}
            <Dropdown overlay={menu}>
-                    <a>UPS Gournd < Icon type="down" /></a>
+                    <a>UPS Gournd <DownOutlined /></a>
            </Dropdown>
            </span> 
             ),
       },
       { title: '预估运费', dataIndex: 'Rate',  key: 'Rate', align : 'center' ,
          render: (record) => (
-         <span> {record} < Icon type="sync" /></span> 
+         <span> {record} <SyncOutlined /></span> 
           ), 
       },
 
       { title: '地址1', dataIndex: 'Address1',  key: 'Address1', align : 'center',
         render: (record) => (
-        <span> <Icon type="question-circle" theme="filled" /> <span>  </span>  {record} </span> 
+        <span> <QuestionCircleFilled /> <span>  </span>  {record} </span> 
          ),     
       },
       { title: '城市', dataIndex: 'City',  key: 'City', align : 'center'},
@@ -221,37 +228,37 @@ const columns = [
 // }  
 ];
 
-  return (        
-           <div> 
-              <div style = {{display : 'inline'} } >                             
-                             <AddOrder  />
-                             <AddBatchOrder />
-              </div>                        
-              <div style = {{display:'inline'}}   >          
-                   {/* <Button disabled = {this.state.selectedRowKeys.length == 0} type="primary" icon = 'export' style={ { marginBottom : '10px'} } > 生成订单</Button> */}
-                   {this.state.selectedRowKeys.length == 0 ? <span></span> :  <Button onClick = {() => this.handleCheck('待发货')} type="default" icon = 'paper-clip' style={ { marginBottom : '10px', marginLeft: '10px' } } > 标记勾选</Button>}    
-                   {this.state.selectedRowKeys.length == 0?  <span></span> :  <Button onClick = {() => this.handleCheck('删除')} type="danger" icon = 'delete' style={ { marginBottom : '10px', marginLeft: '10px'  } } > 删除勾选</Button>  }
-             </div>
-            
-               
-          <Alert style={ { marginBottom : '10px' } } 
-                 message=  { <div>已经选择 <a style ={{marginLeft :'5px' ,marginRight :'5px' }} >{this.state.selectedRowKeys.length}</a>项<a onClick = { this.handleCleanCheck } style ={{marginLeft :'30px'}}>取消选择</a> </div> }      
-                 type="info" showIcon />
-       
-          <Table   
-            components={{
-              body: { wrapper:  TweenOneGroupBody  },
-            }}
-            pagination={{ pageSize: 50 }} 
-            rowKey = {record => record._id}  
-            rowSelection={rowSelection} 
-            columns={columns}  
-            dataSource ={this.props.order} 
-            scroll={{ x: 2000 }}
-            // bordered
-         />
-         </div> 
-           )
+  return (
+    <div> 
+       <div style = {{display : 'inline'} } >                             
+                      <AddOrder  />
+                      <AddBatchOrder />
+       </div>                        
+       <div style = {{display:'inline'}}   >          
+            {/* <Button disabled = {this.state.selectedRowKeys.length == 0} type="primary" icon = 'export' style={ { marginBottom : '10px'} } > 生成订单</Button> */}
+            {this.state.selectedRowKeys.length == 0 ? <span></span> :  <Button onClick = {() => this.handleCheck('待发货')} type="default" icon = {<PaperClipOutlined />} style={ { marginBottom : '10px', marginLeft: '10px' } } > 标记勾选</Button>}    
+            {this.state.selectedRowKeys.length == 0?  <span></span> :  <Button onClick = {() => this.handleCheck('删除')} type="danger" icon = {<DeleteOutlined />} style={ { marginBottom : '10px', marginLeft: '10px'  } } > 删除勾选</Button>  }
+      </div>
+     
+        
+   <Alert style={ { marginBottom : '10px' } } 
+          message=  { <div>已经选择 <a style ={{marginLeft :'5px' ,marginRight :'5px' }} >{this.state.selectedRowKeys.length}</a>项<a onClick = { this.handleCleanCheck } style ={{marginLeft :'30px'}}>取消选择</a> </div> }      
+          type="info" showIcon />
+
+   <Table   
+     components={{
+       body: { wrapper:  TweenOneGroupBody  },
+     }}
+     pagination={{ pageSize: 50 }} 
+     rowKey = {record => record._id}  
+     rowSelection={rowSelection} 
+     columns={columns}  
+     dataSource ={this.props.order} 
+     scroll={{ x: 2000 }}
+     // bordered
+  />
+  </div>
+  );
      }
 }
 

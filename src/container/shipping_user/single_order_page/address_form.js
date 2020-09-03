@@ -5,11 +5,12 @@ import { bindActionCreators } from 'redux'
 import { actions as single_order_form } from '../../../reducers/shipping_platform/single_order_form'
 import 'antd/dist/antd.css';
 
-import {
-    Button, Modal, Form, Input, Radio, Select, Row,
-    Col,
-    message
-} from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
+
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+
+import { Button, Modal, Input, Radio, Select, Row, Col, message } from 'antd';
 
 const FormItem = Form.Item;
 
@@ -124,7 +125,6 @@ const Address_form = Form.create()(
             const { getFieldDecorator, getFieldsError } = form;
             const Option = Select.Option;
             return (
-
                 <Form onSubmit={this.handleSubmit} >
                     <Row gutter={24}>
                         <Col span={12} > <p style={{ fontSize: "150%" }}>发件人</p></Col>
@@ -137,7 +137,7 @@ const Address_form = Form.create()(
                         <Col span={6} >
                             <Button
                                 htmlType="submit"
-                                icon='caret-right'
+                                icon={<CaretRightOutlined />}
                                 style={{ marginTop: '20px' }}
                                 type="primary"
                             >下一步</Button>

@@ -5,11 +5,22 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { actions as single_order_form } from '../../../reducers/shipping_platform/single_order_form'
 
+import { CaretRightOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
+
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+
 import {
-    Button, Modal, Form, Input, Radio, Select, Row, Switch, Icon,
+    Button,
+    Modal,
+    Input,
+    Radio,
+    Select,
+    Row,
+    Switch,
     InputNumber,
     Col,
-    message
+    message,
 } from 'antd';
 
 const FormItem = Form.Item;
@@ -152,8 +163,8 @@ const Parcel_form = Form.create()(
                                     })(
                                         <Switch
                                             onChange={(checked) => this.collect_info_switch(`${item.field_key}`, checked)}
-                                            checkedChildren={<Icon type="check" />}
-                                            unCheckedChildren={<Icon type="close" />}
+                                            checkedChildren={<CheckOutlined />}
+                                            unCheckedChildren={<CloseOutlined />}
                                         />
                                     )}
                                 </FormItem>
@@ -171,8 +182,8 @@ const Parcel_form = Form.create()(
                                     })(
                                         <Switch
                                             onChange={(checked) => this.collect_info_switch(`${item.field_key}`, checked)}
-                                            checkedChildren={<Icon type="check" />}
-                                            unCheckedChildren={<Icon type="close" />}
+                                            checkedChildren={<CheckOutlined />}
+                                            unCheckedChildren={<CloseOutlined />}
                                         />
                                     )}
                                 </FormItem>
@@ -236,7 +247,6 @@ const Parcel_form = Form.create()(
 
 
             return (
-
                 <Form>
                     <Row gutter={24} >{this.get_fields(form_input_asset(parcel_line))}</Row>
                     <Row gutter={24} >{this.get_fields(form_input_asset(order_info_line))}</Row>
@@ -247,7 +257,7 @@ const Parcel_form = Form.create()(
                         <Col span={6} >
                             <Button
                                 style={{ marginTop: '20px' }}
-                                icon='caret-right'
+                                icon={<CaretRightOutlined />}
                                 // disabled={hasErrors(getFieldsError())}
                                 type="primary"
                                 // htmlType="submit"

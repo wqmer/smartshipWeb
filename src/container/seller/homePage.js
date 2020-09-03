@@ -3,7 +3,9 @@ import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { Dropdown, Button ,Avatar ,Layout, Menu, Breadcrumb, Icon ,Badge} from 'antd';
+import { Icon as LegacyIcon } from '@ant-design/compatible';
+import { BellOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { Dropdown, Button, Avatar, Layout, Menu, Breadcrumb, Badge } from 'antd';
 import newOrderPage from './newOrderPage'
 import {actions} from '../../reducers/order'
 import readyToshipPage from './readyToshipPage'
@@ -87,7 +89,7 @@ class user extends Component{
         const children = getParentName?submenus.find(item => item.name == getParentName ).children.find(item => item.url == this.getKeyOfSubMenus().LastChildOfUrl):undefined
         const getchildrenName = children?children.name : undefined
     
-        return(
+        return (
             <div>
             <Layout hasSider = {true} style={{height: '1400px' } }>
             {/* <Layout style={this.state.collapsed == false? { width: 280} : { width: 10} }> */}
@@ -106,7 +108,7 @@ class user extends Component{
                            style={{ padding: '16px 0', width: '100%' }}>
                            {submenus.map((parent, index) =>  
                            <SubMenu key= {parent.key} 
-                                    title={<span><Icon type={parent.iconType}/><span>{parent.name}</span></span>}
+                                    title={<span><LegacyIcon type={parent.iconType}/><span>{parent.name}</span></span>}
                                     onClick={({key}) =>  this.props.history.push(`/seller${parent.url}${key}`)}> 
                                     {parent.children.map((child, index) => 
                                     <Menu.Item 
@@ -127,7 +129,7 @@ class user extends Component{
                 >
                         {/* <Header style={{ background: '#fff', padding: 0 , } }> */}
                         <Header style={{ background: '#fff', padding: 0  , display : 'flex' , justifyContent :'space-between'}}> 
-                            <Icon
+                            <LegacyIcon
                                  className="trigger"
                                  style={{ fontSize: 25}}
                                  type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
@@ -135,9 +137,9 @@ class user extends Component{
                                />  
                 
                            <div style= { {marginRight: '30px',  justifyContent :'space-between' }  } >  
-                                <Icon type="search" style= { {marginRight: '20px'}  } />    
-                                <Icon type="bell" style= { {marginRight: '20px'}  } />    
-                                <Avatar size ='small' icon="user" style={{ marginRight: '3px'}} />   
+                                <SearchOutlined style= { {marginRight: '20px'}  } />    
+                                <BellOutlined style= { {marginRight: '20px'}  } />    
+                                <Avatar size ='small' icon={<UserOutlined />} style={{ marginRight: '3px'}} />   
                                 <Dropdown overlay={menu} placement="bottomRight">       
                                     <span>用户中心</span>           
                                 </Dropdown>                  
@@ -167,7 +169,7 @@ class user extends Component{
                 </Layout>
             </Layout>
             </div>
-        )
+        );
     }
 }
 
@@ -177,12 +179,12 @@ function mapStateToProps(state) {
            isFetching:state.globalState.isFetching
     }
   }
-  
-  function mapDispatchToProps(dispatch) {
-    return{
-          getAllorder : bindActionCreators(actions.get_all_order,dispatch),
-         }
-  }
+
+function mapDispatchToProps(dispatch) {
+  return{
+        getAllorder : bindActionCreators(actions.get_all_order,dispatch),
+       }
+}
 
 export default connect(
     mapStateToProps,

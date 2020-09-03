@@ -1,5 +1,21 @@
 
-import { Form, Radio, Drawer, Col, Row, message, Checkbox, Alert, Button, Typography, Select, Collapse, Steps, Divider, Icon } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import {
+    Radio,
+    Drawer,
+    Col,
+    Row,
+    message,
+    Checkbox,
+    Alert,
+    Button,
+    Typography,
+    Select,
+    Collapse,
+    Steps,
+    Divider,
+} from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import _ from "lodash";

@@ -1,4 +1,5 @@
-import { Result, Button, Icon } from 'antd';
+import { PrinterOutlined, RollbackOutlined, SmileTwoTone } from '@ant-design/icons';
+import { Result, Button } from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 
@@ -17,18 +18,18 @@ class Finish_form extends Component {
         return (
             <div>
                 <Result
-                    icon={<Icon type="smile" theme="twoTone" />}
+                    icon={<SmileTwoTone />}
                     title="订单完成！"
                     subTitle= { <span>系统订单号为xxxxxxxx，总运费为10.23 usd 。 由FedDex提供运输服务。点击按钮直接打印pdf 或在<a>已完成</a>中查看 </span> }
                     extra={[
                         <Button
-                            icon="printer"
+                            icon={<PrinterOutlined />}
                             type="primary"
                             key="console">
                             打印运单
                         </Button>,
                         <Button
-                            icon="rollback"
+                            icon={<RollbackOutlined />}
                             onClick={() => {
                                 this.props.history.push(`/user/create/single_order/`)
                             }}
@@ -37,7 +38,7 @@ class Finish_form extends Component {
                     ]}
                 />
             </div>
-        )
+        );
     }
 }
 export default Finish_form

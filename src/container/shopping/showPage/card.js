@@ -1,4 +1,4 @@
-import { Skeleton, Layout, Menu, Breadcrumb,Icon} from 'antd';
+import { Skeleton, Layout, Menu, Breadcrumb } from 'antd';
 import   React, {Component, PropTypes} from 'react'
 import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import { Card } from 'antd';

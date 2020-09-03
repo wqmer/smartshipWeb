@@ -38,7 +38,8 @@ export function* login(data) {
         type: gobal_action.FETCH_START
     });
     try {
-        return yield call(post, '/user/login', data)
+        
+        return yield call(post, '/forwarder/login', data)
     } catch (error) {
         console.log(error.response)
         yield put({
@@ -57,6 +58,7 @@ export function* login(data) {
 export function* loginFlow() {
     while (true) {
         let request = yield take(user_account_action.USER_LOGIN);
+        console.log(request)
         let response = yield call(login, request.data);
         if (response && response.code === 0) {
             yield put({
@@ -72,6 +74,45 @@ export function* loginFlow() {
         }
     }
 }
+
+export function* logOut() {
+    yield put({
+        type: gobal_action.FETCH_START
+    });
+    try {    
+        return yield call(get, '/forwarder/logout')
+    } catch (error) {
+        console.log(error.response)
+        yield put({
+            type: gobal_action.SET_MESSAGE,
+            messageContent: error.response.status == 504 ? error.message : error.response.data.message,
+            status_code: 1
+        });
+        yield put({ type: gobal_action.SET_MESSAGE, messageContent: '', status_code: 0 })
+    } finally {
+        yield put({
+            type: gobal_action.FETCH_END
+        });
+    }
+}
+
+export function* logOutFlow() {
+    while (true) {
+        let request = yield take(user_account_action.USER_LOGOUT);
+        console.log(request)
+        let response = yield call(logOut);
+        if (response && response.code === 0) {      
+            yield put({
+                type: gobal_action.SET_MESSAGE,
+                messageContent: '账号已经登出!',
+                status_code: 0
+            });
+            yield put({ type: gobal_action.SET_MESSAGE, messageContent: '', status_code: 0 })
+            history.push('/login')
+        }
+    }
+}
+
 
 export function* register(data) {
     yield put({
@@ -118,7 +159,7 @@ export function* user_auth() {
             yield put({
                 type: gobal_action.FETCH_START
             });
-            let response = yield call(get, '/user/userInfo');
+            let response = yield call(get, '/forwarder/forwarderInfo');
             if (response && response.code === 0) {
                 yield put({
                     type: user_account_action.RESPONSE_USER_INFO,

@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import { actions } from '../../../reducers/saveOrder'
 import { actions as fetchOrderAction} from '../../../reducers/order'
+import { DeleteOutlined, EditOutlined, ExportOutlined } from '@ant-design/icons';
 import { Button , Table , Divider} from 'antd';
 import { Popconfirm, message } from 'antd';
 import Animate from 'rc-animate';
@@ -13,7 +14,7 @@ import EditableForm from './editableFrom'
 import AddOrder from './modal'
 
 
-         
+
 class MyTable extends React.Component {
   constructor(props) { 
   super(props) 
@@ -77,7 +78,7 @@ const columns = [ { title: '姓名', dataIndex: 'Name' },
                        <Button  onClick={() => { this.showModal()
                                                   this.handleData(record)
                                               }}
-                       icon ='edit' type="default" >编辑</Button> 
+                       icon ={<EditOutlined />} type="default" >编辑</Button> 
                        <Divider type="vertical" />
                        <Popconfirm title="确认要删除此条记录吗?" 
                                    onConfirm={() => {   
@@ -85,7 +86,7 @@ const columns = [ { title: '姓名', dataIndex: 'Name' },
                                     message.success('已经删除')}} // redux saga 异步确认
                                    onCancel={cancel} okText="确认" cancelText="取消">
                        <Button 
-                        icon ='delete' 
+                        icon ={<DeleteOutlined />} 
                         type="danger" >删除</Button>   
                        </Popconfirm>
                  
@@ -93,32 +94,32 @@ const columns = [ { title: '姓名', dataIndex: 'Name' },
                        ),
                   }  
                ];
-   return (        
-           <div>
-               <div style = { { display : 'flex' , justifyContent :'space-between'} } >
-                             <AddOrder  />
-                              <div style = {{display:'inline'}}   >
-                                 <Button disabled type="primary" icon = 'export' style={ { marginBottom : '10px' , marginLeft: '10px' } } > 生成订单</Button>
-                                 <Button disabled type="danger" icon = 'delete' style={ { marginBottom : '10px', marginLeft: '10px'  } } > 删除勾选</Button>  
-                             </div>
-               </div>
-          <Table 
- 
-            pagination={{ pageSize: 10, }} 
-            rowKey = {record => record._id}  
-            rowSelection={rowSelection} 
-            columns={columns}  
-            dataSource ={this.props.order} 
-         />
-     
-          <EditableForm wrappedComponentRef={this.saveFormRef}
-            visible={this.state.visible}
-            onCancel={this.handleCancel}
-            onCreate={this.handleCreate}
-            data = {this.state.data}
-         />  
-         </div> 
-           )
+   return (
+     <div>
+         <div style = { { display : 'flex' , justifyContent :'space-between'} } >
+                       <AddOrder  />
+                        <div style = {{display:'inline'}}   >
+                           <Button disabled type="primary" icon = {<ExportOutlined />} style={ { marginBottom : '10px' , marginLeft: '10px' } } > 生成订单</Button>
+                           <Button disabled type="danger" icon = {<DeleteOutlined />} style={ { marginBottom : '10px', marginLeft: '10px'  } } > 删除勾选</Button>  
+                       </div>
+         </div>
+    <Table 
+
+      pagination={{ pageSize: 10, }} 
+      rowKey = {record => record._id}  
+      rowSelection={rowSelection} 
+      columns={columns}  
+      dataSource ={this.props.order} 
+   />
+
+    <EditableForm wrappedComponentRef={this.saveFormRef}
+      visible={this.state.visible}
+      onCancel={this.handleCancel}
+      onCreate={this.handleCreate}
+      data = {this.state.data}
+   />  
+   </div>
+   );
      }
 }
 

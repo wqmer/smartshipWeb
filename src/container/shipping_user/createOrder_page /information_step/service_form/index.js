@@ -1,4 +1,18 @@
-import { Tag, Typography, Button, Col, Row, Input, Form, Select, Collapse, Steps, Divider, Icon, Checkbox } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import {
+    Tag,
+    Typography,
+    Button,
+    Col,
+    Row,
+    Input,
+    Select,
+    Collapse,
+    Steps,
+    Divider,
+    Checkbox,
+} from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import _ from "lodash";

@@ -1,6 +1,6 @@
 import Result from 'ant-design-pro/lib/Result';
 import React, {Component, PropTypes} from 'react'
-import {  Button, Row, Col, Icon, Steps } from 'antd';
+import { Button, Row, Col, Steps } from 'antd';
 
 
 const { Step } = Steps;

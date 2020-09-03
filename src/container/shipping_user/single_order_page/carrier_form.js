@@ -1,4 +1,17 @@
-import { Progress, Modal, Tag, Tooltip, Icon, Skeleton, Button, Radio, List, Avatar, Row, Col } from 'antd';
+import { EditOutlined, InfoCircleOutlined, PropertySafetyOutlined } from '@ant-design/icons';
+import {
+    Progress,
+    Modal,
+    Tag,
+    Tooltip,
+    Skeleton,
+    Button,
+    Radio,
+    List,
+    Avatar,
+    Row,
+    Col,
+} from 'antd';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import React, { Component } from 'react';
@@ -157,7 +170,7 @@ class Carrier_form extends Component {
                                         <span style={{ float: 'left', textAlign: 'right' }}> <Tag color="green">当前折扣价</Tag>
                                             <span>
                                                 <Tooltip placement="bottomLeft" title="此处显示费用详细解释或者补充说明">
-                                                    <Icon type="info-circle" />
+                                                    <InfoCircleOutlined />
                                                 </Tooltip>
                                             </span>
                                         </span>
@@ -173,7 +186,7 @@ class Carrier_form extends Component {
                         <Col span={3} >
                             <Button
                                 style={{ marginTop: '20px' }}
-                                icon='edit'
+                                icon={<EditOutlined />}
                                 // size="large"
                                 onClick={() => {
                                     // this.props.set_finished('carrier_form', 'finish_form');
@@ -188,7 +201,7 @@ class Carrier_form extends Component {
                         <Col span={3} >
                             <Button
                                 style={{ marginTop: '20px' }}
-                                icon='property-safety'
+                                icon={<PropertySafetyOutlined />}
                                 disabled ={this.state.value == undefined}
                                 onClick={() => {
                                     this.showModal()
@@ -229,7 +242,7 @@ class Carrier_form extends Component {
                         {/* <Progress width={150} type="circle" percent={this.state.percent} /> */}
                     </Modal>
             </div>
-        )
+        );
     }
 }
 

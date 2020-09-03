@@ -4,6 +4,7 @@ import QueueAnim from 'rc-queue-anim';
 import 'antd/dist/antd.css';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
+import { DeleteOutlined, PaperClipOutlined } from '@ant-design/icons';
 import { Button , Table , Divider} from 'antd';
 import { Alert , Popconfirm, message , Checkbox} from 'antd';
 import XLSX from 'xlsx'
@@ -229,46 +230,46 @@ children: [
 }  
 ];
 
-  return (        
-           <div>
-               <CheckboxGroup style={ { marginBottom : '20px'  } } options={plainOptions} defaultValue={['飞碟']}  disabled = {this.state.selectedRowKeys.length == 0} onChange={this.onChange} />
-               <div>
-                            <div style = { { display : 'inline' } }>  
-                            {/* <Button disabled = { false && this.state.selectedRowKeys.length == 0} onClick = {() => this.handleGenerateOrder()} type="primary" icon = 'export' style={ { marginBottom : '10px'} } > 生成订单</Button>    */}
-                           <GenerateSheet agentType = {this.state.checkAgent} data = {this.state.dataFromCheck}/>
-                        
-                           </div>              
-                              <div style = {{display:'inline'}}   >             
-                               {this.state.selectedRowKeys.length == 0 ? <span></span>: <Button  type="default" icon = 'paper-clip' style={ { marginBottom : '10px', marginLeft: '10px' } } > 标记勾选</Button>}
-                               {this.state.selectedRowKeys.length == 0 ? <span></span>: <Button  onClick = { () => this.handleCheck('删除')}  type="danger" icon = 'delete' style={ { marginBottom : '10px', marginLeft: '10px'  } } > 删除勾选</Button>}  
-                           </div>      
-               </div>
- 
-           <Alert style={ { marginBottom : '10px' } } 
-                  message =  { <div>已经选择 <a style ={{marginLeft :'5px' ,marginRight :'5px' }} >{this.state.selectedRowKeys.length}</a>项<a onClick = {this.handleCleanCheck} style ={{marginLeft :'30px'}}>取消选择</a> </div> }      
-                  type="info" showIcon />
-          <Table   
-            components={{
-              body: { wrapper:  TweenOneGroupBody  },
-            }}
-            // components={{
-            //   body: { wrapper: MyQueueAnim  },
-            // }}
-            // components={{
-            //   body: { wrapper: AnimateBody  },
-            // }}
-            pagination={{ pageSize: 8, }} 
-            rowKey = {record => record._id}  
-            rowSelection={rowSelection} 
-            columns={columns}  
-            dataSource ={this.props.order.filter((item) => item.Status === '待发货')} 
-            // bordered
-            // expandRowByClick ={true}
-            // expandedRowRender = {expandedRowRender}
-         />
+  return (
+    <div>
+        <CheckboxGroup style={ { marginBottom : '20px'  } } options={plainOptions} defaultValue={['飞碟']}  disabled = {this.state.selectedRowKeys.length == 0} onChange={this.onChange} />
+        <div>
+                     <div style = { { display : 'inline' } }>  
+                     {/* <Button disabled = { false && this.state.selectedRowKeys.length == 0} onClick = {() => this.handleGenerateOrder()} type="primary" icon = 'export' style={ { marginBottom : '10px'} } > 生成订单</Button>    */}
+                    <GenerateSheet agentType = {this.state.checkAgent} data = {this.state.dataFromCheck}/>
+                 
+                    </div>              
+                       <div style = {{display:'inline'}}   >             
+                        {this.state.selectedRowKeys.length == 0 ? <span></span>: <Button  type="default" icon = {<PaperClipOutlined />} style={ { marginBottom : '10px', marginLeft: '10px' } } > 标记勾选</Button>}
+                        {this.state.selectedRowKeys.length == 0 ? <span></span>: <Button  onClick = { () => this.handleCheck('删除')}  type="danger" icon = {<DeleteOutlined />} style={ { marginBottom : '10px', marginLeft: '10px'  } } > 删除勾选</Button>}  
+                    </div>      
+        </div>
 
-         </div> 
-           )
+    <Alert style={ { marginBottom : '10px' } } 
+           message =  { <div>已经选择 <a style ={{marginLeft :'5px' ,marginRight :'5px' }} >{this.state.selectedRowKeys.length}</a>项<a onClick = {this.handleCleanCheck} style ={{marginLeft :'30px'}}>取消选择</a> </div> }      
+           type="info" showIcon />
+   <Table   
+     components={{
+       body: { wrapper:  TweenOneGroupBody  },
+     }}
+     // components={{
+     //   body: { wrapper: MyQueueAnim  },
+     // }}
+     // components={{
+     //   body: { wrapper: AnimateBody  },
+     // }}
+     pagination={{ pageSize: 8, }} 
+     rowKey = {record => record._id}  
+     rowSelection={rowSelection} 
+     columns={columns}  
+     dataSource ={this.props.order.filter((item) => item.Status === '待发货')} 
+     // bordered
+     // expandRowByClick ={true}
+     // expandedRowRender = {expandedRowRender}
+  />
+
+  </div>
+  );
      }
 }
 

@@ -15,7 +15,9 @@ class UserLogin extends Component {
         const { login, register } = this.props;
         return (
             <div className='login'>
-                {this.props.user_info.user_id ? <Logined history={this.props.history} user_info={this.props.user_info} /> : <Login login={login} />}
+                {this.props.forwarder_info.forwarder_id ? <Logined history={this.props.history} forwarder_info={this.props.forwarder_info} />
+                    : <Login login={(data) => login(data)}
+                    />}
             </div>
         )
     }
@@ -27,7 +29,7 @@ class UserLogin extends Component {
 function mapStateToProps(state) {
     return {
         status_code: state.globalState.status_code,
-        user_info: state.shipping_platform_user.account.user_info
+        forwarder_info: state.shipping_platform_user.account.forwarder_info
     }
 }
 

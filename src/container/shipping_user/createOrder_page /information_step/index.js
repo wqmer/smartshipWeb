@@ -1,5 +1,17 @@
 
-import { Drawer, message, Checkbox, Alert, Button, Typography, Select, Collapse, Steps, Divider, Icon } from 'antd';
+import Icon, { CaretLeftOutlined } from '@ant-design/icons';
+import {
+    Drawer,
+    message,
+    Checkbox,
+    Alert,
+    Button,
+    Typography,
+    Select,
+    Collapse,
+    Steps,
+    Divider,
+} from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux'
@@ -149,7 +161,7 @@ class Information_page extends React.Component {
 
         return (
             <Collapse
-                expandIcon={({ isActive }) => <span><Icon type="caret-left" rotate={isActive ? -90 : 0} /></span>}
+                expandIcon={({ isActive }) => <span><CaretLeftOutlined rotate={isActive ? -90 : 0} /></span>}
                 // destroyInactivePanel = {true}
                 // style={{ background: '#fff', }}
                 // style={{   background: '#f7f7f7', }}
@@ -167,7 +179,7 @@ class Information_page extends React.Component {
             >
                 {form_content(this).map((item, index) =>
                     <Panel
-                        // disabled={item.key == 'service_information' && !is_all_set}
+                        disabled={item.key == 'service_information' && !is_all_set}
                         style={{
                             // background: '#F5F5F5',
                             // background: '#fff',
@@ -207,7 +219,7 @@ class Information_page extends React.Component {
                     </Panel>
                 )}
             </Collapse>
-        )
+        );
     }
 }
 

@@ -1,4 +1,15 @@
-import { Spin, Icon, Button, Form, Input, DatePicker, TimePicker, Select, InputNumber, } from 'antd';
+import {
+  HomeOutlined,
+  PhoneOutlined,
+  ProfileOutlined,
+  ProjectOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
+
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+
+import { Spin, Button, Input, DatePicker, TimePicker, Select, InputNumber } from 'antd';
 import React, { Component, PropTypes } from 'react'
 import ChinaSelector from '../component/ChinaDivisionSelector'
 import { pca, pcaa } from 'area-data'; // v3 or higher
@@ -85,7 +96,6 @@ class orderDetailForm extends React.Component {
 
 
     return (
-
       <div>
         <Spin spinning={this.state.loading} tip="产生订单中">
           <Form style={{ margin: '30px 500px 0px 250px ' }} layout='horizontal' onSubmit={this.handleSubmit}>
@@ -98,7 +108,7 @@ class orderDetailForm extends React.Component {
             >
               {/* <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="真实姓名" /> */}
               {getFieldDecorator('Name', { rules: [{ required: true, message: '请输入你的姓名!' }], })(
-                <Input style={{ width: '40%' }} prefix={<Icon type="profile" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="真实姓名" />
+                <Input style={{ width: '40%' }} prefix={<ProfileOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="真实姓名" />
               )}
             </Form.Item>
 
@@ -112,7 +122,7 @@ class orderDetailForm extends React.Component {
             >
               {/* <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="真实姓名" /> */}
               {getFieldDecorator('Id', { rules: [{ required: true, message: '请输入你的身份证号码!' }], })(
-                <Input style={{ width: '60%' }} prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="证件号码" />
+                <Input style={{ width: '60%' }} prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="证件号码" />
               )}
             </Form.Item>
 
@@ -127,7 +137,7 @@ class orderDetailForm extends React.Component {
               {getFieldDecorator('PhoneNumber', {
                 rules: [{ required: true, message: '请输入你的手机号码!' }],
               })(
-                <Input style={{ width: '60%' }} prefix={<Icon type="phone" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号码" />
+                <Input style={{ width: '60%' }} prefix={<PhoneOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="手机号码" />
               )}
             </Form.Item>
 
@@ -169,7 +179,7 @@ class orderDetailForm extends React.Component {
               {getFieldDecorator('Address', {
                 rules: [{ required: true, message: '请输入你的详细收货地址!' }],
               })(
-                <Input prefix={<Icon type="home" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="xxx路xxx号" />
+                <Input prefix={<HomeOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="xxx路xxx号" />
               )}
 
             </Form.Item>
@@ -238,7 +248,7 @@ class orderDetailForm extends React.Component {
                 {getFieldDecorator('Product', {
                   rules: [{ required: true, message: '请输入详细的产品名称!' }],
                 })(
-                  <Input prefix={<Icon type="project" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="产品名称" />
+                  <Input prefix={<ProjectOutlined style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="产品名称" />
                 )}
               </Form.Item>
             </Form.Item>
@@ -266,8 +276,7 @@ class orderDetailForm extends React.Component {
         </Spin>
 
       </div>
-
-    )
+    );
   }
 }
 

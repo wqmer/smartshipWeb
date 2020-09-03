@@ -4,7 +4,8 @@ import QueueAnim from 'rc-queue-anim';
 import 'antd/dist/antd.css';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Menu, Dropdown, Button, Icon, Table, Divider } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import { Menu, Dropdown, Button, Table, Divider } from 'antd';
 import { Popconfirm, message } from 'antd';
 import Animate from 'rc-animate';
 import { TweenOneGroup } from 'rc-tween-one';
@@ -52,9 +53,9 @@ class moreAction extends React.Component {
 
     return (
       <div style={{ display: 'inline' }} >
-        <Dropdown overlay={myMenu(this.props.data)}><a className="ant-dropdown-link"  >更多<Icon type="down" /></a></Dropdown>
+        <Dropdown overlay={myMenu(this.props.data)}><a className="ant-dropdown-link"  >更多<DownOutlined /></a></Dropdown>
       </div>
-    )
+    );
   }
 
 

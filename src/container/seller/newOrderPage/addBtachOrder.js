@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import { Upload , Button, Modal, Form, Input, Radio, Select, message,Icon } from 'antd';
+import { FileExcelOutlined, UploadOutlined } from '@ant-design/icons';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Upload, Button, Modal, Input, Radio, Select, message } from 'antd';
 // import {actions} from '../../../reducers/saveOrder'
 import {actions as OrdersAction} from '../../../reducers/order'
 import EditableForm from '../components/addableFrom'
@@ -96,7 +99,7 @@ class CollectionsPage extends React.Component {
 
     return (
       <div style = {{display:'inline'}}    >
-        <Button type="primary" icon = 'file-excel' onClick={this.showModal} style={ { marginBottom : '10px' , marginLeft: '10px' } } > 批量导入</Button>
+        <Button type="primary" icon = {<FileExcelOutlined />} onClick={this.showModal} style={ { marginBottom : '10px' , marginLeft: '10px' } } > 批量导入</Button>
         <Modal
           title="本地上传"
           visible={visible}
@@ -112,7 +115,7 @@ class CollectionsPage extends React.Component {
         >
 
           <Upload accept = '.xlsx,.xls'  {...props}>          {/* 此处添加限制 */}
-          <Button style = { {display:'inline'} }  > <Icon type="upload" /> 请选择文件 </Button>
+          <Button style = { {display:'inline'} }  > <UploadOutlined /> 请选择文件 </Button>
           <p style = {{ marginLeft:'30px' ,   display:'inline'}} >{ModalText}</p>
           </Upload>
        

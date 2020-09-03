@@ -1,4 +1,6 @@
-import { Button, Col, Row, Input, Form, Select, Collapse, Steps, Divider, Icon } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Col, Row, Input, Select, Collapse, Steps, Divider } from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import { actions as single_order_form } from '../../../../../reducers/shipping_platform/single_order_form'

@@ -1,4 +1,5 @@
-import { Steps, Divider, Icon } from 'antd';
+import { CarOutlined, CheckCircleOutlined, FormOutlined, GiftOutlined } from '@ant-design/icons';
+import { Steps, Divider } from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import Address_form from './address_form'
@@ -166,10 +167,10 @@ class Single_order_page extends React.Component {
                     // size = "small"
                     current={current}
                     onChange={this.onChange}>
-                    <Step key="收发信息" status={this.state.status[0]} title="收发信息" icon={<Icon type="form" />} disabled={this.state.disabled[0]} />
-                    <Step key="包裹信息" status={this.state.status[1]} title="包裹信息" icon={<Icon type="gift" />} disabled={this.state.disabled[1]} />
-                    <Step key="选择渠道" status={this.state.status[2]} title="选择渠道" icon={<Icon type="car" />} disabled={this.state.disabled[2]} />
-                    <Step key="完成出单" status={this.state.status[3]} title="完成出单" icon={<Icon type="check-circle" />} disabled={this.state.disabled[3]} />
+                    <Step key="收发信息" status={this.state.status[0]} title="收发信息" icon={<FormOutlined />} disabled={this.state.disabled[0]} />
+                    <Step key="包裹信息" status={this.state.status[1]} title="包裹信息" icon={<GiftOutlined />} disabled={this.state.disabled[1]} />
+                    <Step key="选择渠道" status={this.state.status[2]} title="选择渠道" icon={<CarOutlined />} disabled={this.state.disabled[2]} />
+                    <Step key="完成出单" status={this.state.status[3]} title="完成出单" icon={<CheckCircleOutlined />} disabled={this.state.disabled[3]} />
                 </Steps>
 
                 <div style={{ background: '#fff', padding: 32 , marginTop: '24px' }}>

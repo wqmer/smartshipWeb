@@ -1,4 +1,6 @@
-import { Button, Col, Row, Input, Form, Select, Collapse, Steps, Divider, Icon } from 'antd';
+import { Form } from '@ant-design/compatible';
+import '@ant-design/compatible/assets/index.css';
+import { Button, Col, Row, Input, Select, Collapse, Steps, Divider } from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import { actions as single_order_form } from '../../../../../reducers/shipping_platform/single_order_form'
@@ -9,15 +11,15 @@ import Address_form from './address_form'
 
 const sender_content = {
     asset: [
-        { "label": '姓名', "key": "sender_name", "is_required": true, "message": undefined, "placehold": '发件人姓名，暂时不支持中文', "span_value": 6, type: 'input', },
-        { "label": '公司名字', "key": "sender_company", "is_required": false, "message": undefined, "placehold": '公司名字，选填', "span_value": 6, type: 'input', },
-        { "label": 'Email', "key": "sender_email", "is_required": false, "message": undefined, "placehold": 'Email地址,选填', "span_value": 6, type: 'input', },
-        { "label": '电话', "key": "sender_phone_number", "is_required": true, "message": undefined, "placehold": '美国电话,必填', "span_value": 6, type: 'input', },
-        { "label": '地址一', "key": "sender_add1", "is_required": true, "message": undefined, "placehold": '街道号码，路名，必填项', "span_value": 12, type: 'input', },
-        { "label": '地址二', "key": "sender_add2", "is_required": false, "message": undefined, "placehold": '门牌号，选填', "span_value": 12, type: 'input', },
-        { "label": '邮编', "key": "sender_zip_code", "is_required": true, "message": undefined, "placehold": '必填项', "span_value": 4, type: 'input', },
-        { "label": '城市', "key": "sender_city", "is_required": true, "message": undefined, "placehold": '必填项', "span_value": 5, type: 'input', },
-        { "label": '州', "key": "sender_tate", "is_required": true, "message": undefined, "placehold": '选择州', "span_value": 3, type: 'select', },
+        { "label": '姓名', "key": "sender_name", "is_required": true, "message": undefined, "placehold": '发件人姓名，暂时不支持中文', "span_value": 12, type: 'input', },
+        { "label": '公司名字', "key": "sender_company", "is_required": false, "message": undefined, "placehold": '公司名字，选填', "span_value": 12, type: 'input', },
+        { "label": '电话', "key": "sender_phone_number", "is_required": true, "message": undefined, "placehold": '美国电话,必填', "span_value": 12, type: 'input', },
+        { "label": '邮件地址', "key": "sender_email", "is_required": false, "message": undefined, "placehold": 'Email地址, 选填', "span_value": 12, type: 'input', },
+        { "label": '地址', "key": "sender_add1", "is_required": true, "message": undefined, "placehold": '街道号码，路名，必填项', "span_value": 12, type: 'input', },
+        { "label": '门牌号码', "key": "sender_add2", "is_required": false, "message": undefined, "placehold": '门牌号，选填', "span_value": 12, type: 'input', },
+        { "label": '邮编', "key": "sender_zip_code", "is_required": true, "message": undefined, "placehold": '必填项', "span_value": 6, type: 'input', },
+        { "label": '城市', "key": "sender_city", "is_required": true, "message": undefined, "placehold": '必填项', "span_value": 6, type: 'input', },
+        { "label": '州', "key": "sender_tate", "is_required": true, "message": undefined, "placehold": '选择州', "span_value": 6, type: 'select', },
     ],
 
     sender_extra: [],

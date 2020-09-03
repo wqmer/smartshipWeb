@@ -1,4 +1,16 @@
-import { message, Drawer, Checkbox, Alert, Button, Typography, Select, Collapse, Steps, Divider, Icon } from 'antd';
+import Icon, { MoneyCollectTwoTone, UpOutlined } from '@ant-design/icons';
+import {
+    message,
+    Drawer,
+    Checkbox,
+    Alert,
+    Button,
+    Typography,
+    Select,
+    Collapse,
+    Steps,
+    Divider,
+} from 'antd';
 import React, { Component } from 'react';
 import { Redirect, Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 // import Address_form from './address_form'
@@ -385,9 +397,12 @@ class Create_order_page extends React.Component {
                 <Drawer
                     title={
                         <div>
-                            <Icon style={{ display: 'inline-block', fontSize: '18px' }} type="money-collect" theme="twoTone" />
+                            <MoneyCollectTwoTone style={{ display: 'inline-block', fontSize: '18px' }} />
                             <div style={{ display: 'inline-block', width: 200, marginLeft: 8, fontSize: 18 }}> <a>总费用 ： $ {this.props.billing_information.total} </a></div>
-                            <Icon style={{ display: 'inline-block', marginLeft: '35%', fontSize: 18, }} type="up" rotate={this.state.is_expand ? 180 : 0} onClick={this.changeHeight} />
+                            <UpOutlined
+                                style={{ display: 'inline-block', marginLeft: '35%', fontSize: 18, }}
+                                rotate={this.state.is_expand ? 180 : 0}
+                                onClick={this.changeHeight} />
                         </div>}
                     // headerStyle ={{paddingLeft : "35%"}}
                     // bodyStyle ={{overflow:'visible'}}

@@ -64,7 +64,7 @@ const finance = () => {
                             style={{ display: "inline-block" }}
                             title="交易额"
                             value={5023023}
-                            suffix={<span>美金<span style={{ marginLeft: 6, color: '#cf1322', fontSize: 16 }}> <ArrowDownOutlined /> 200%</span></span>}
+                            suffix={<span style ={{fontSize: 14 }}>USD<span style={{ marginLeft: 3, color: '#cf1322', fontSize: 14 }}> <ArrowDownOutlined /> 200%</span></span>}
                         />
                     </a>
                 </Col>
@@ -76,7 +76,7 @@ const finance = () => {
                         <Statistic
                             title="成本"
                             value={4002000}
-                            suffix={<span>美金<span style={{ marginLeft: 6, color: '#3f8600', fontSize: 16 }}> <ArrowUpOutlined /> 10%</span></span>}
+                            suffix={<span  style ={{fontSize: 14 }}>USD<span style={{ marginLeft: 3, color: '#3f8600', fontSize: 14}}> <ArrowUpOutlined /> 10%</span></span>}
                         />
                     </a>
                 </Col>
@@ -86,7 +86,7 @@ const finance = () => {
                         <Statistic
                             title="利润"
                             value={9989.5}
-                            suffix={<span>美金<span style={{ marginLeft: 6, color: '#3f8600', fontSize: 16 }}> <ArrowUpOutlined /> 10%</span></span>}
+                            suffix={<span style ={{fontSize: 14 }}>USD<span style={{ marginLeft: 3, color: '#3f8600', fontSize: 14 }}> <ArrowUpOutlined /> 10%</span></span>}
                         />
                     </a>
                 </Col>

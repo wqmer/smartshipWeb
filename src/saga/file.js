@@ -1,5 +1,4 @@
-import {actionTypes as order} from '../reducers/order'
-import {actionTypes as handleOrder} from '../reducers/saveOrder'
+
 import {actionTypes as file} from '../reducers/handleFile'
 import {actionsTypes as gobal} from '../reducers'
 import {put, take, call, select } from 'redux-saga/effects'

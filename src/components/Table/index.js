@@ -33,7 +33,7 @@ import { TweenOneGroup } from 'rc-tween-one';
 import { Alert } from 'antd';
 
 
-import { get, post } from '../../util/fetch';
+import { get, Post } from '../../util/fetch';
 import { actions as actions_user_order } from '../../reducers/shipping_platform/user/order'
 import Filter from './filter'
 import { handle_error } from '../../util/error'
@@ -180,9 +180,10 @@ class MyTable extends React.Component {
     //请求表格数据，并展示页面
     fetch_data(api_url_pagniate = this.props.api_url['get_data_pignate'], state = this.state) {
         this.setState({ is_fetching: true });
-        post(api_url_pagniate, {
+        Post(api_url_pagniate, {
             'searching_string': state.searching_string,
-            'status': this.props.page_name,
+            //'status': this.props.page_name,
+            "status": "completed",
             "page": state.current_page,
             "limit": state.page_size,
             "filter": state.filter
@@ -209,7 +210,7 @@ class MyTable extends React.Component {
 
     handle_action(_id, type) {
         this.setState({ is_fetching: true });
-        post(handle_request(_id)[type].url, handle_request(_id)[type].body).then(payload => {
+        Post(handle_request(_id)[type].url, handle_request(_id)[type].body).then(payload => {
             let data_amount = this.state.total - payload.data.n
             let result = define_current_page(data_amount, this.state.page_size, this.state.current_page)
             let update_content = {
@@ -232,7 +233,7 @@ class MyTable extends React.Component {
     //勾选控制
     check_all_data(api_url_pagniate, state = this.state) {
         this.setState({ is_fetching: true });
-        post(api_url_pagniate,
+        Post(api_url_pagniate,
             {
                 'searching_string': state.searching_string,
                 'status': this.props.page_name,
@@ -408,20 +409,33 @@ class MyTable extends React.Component {
                             showIcon
                         />
                     </div>
-
-                    <Table
-                        style={{ marginTop: '16px' }}
-                        // size='middle'
-                        // tableLayout = 'fixed'
-                        pagination={paginationProps}
-                        rowKey={record => record[this.props.row_key]}
-                        rowSelection={this.props.checkBox == undefined ? rowSelection : this.props.checkBox ? this.props.checkBox : undefined}
-                        columns={this.props.table_content}
-                        dataSource={this.state.data}
-                        scroll={{ x: this.props.table_content.map(item => item.width).reduce((accumulator, currentValue) => accumulator + currentValue) + 200, y: 480 }}
-                        loading={tableLoading}
-                        onChange={this.handle_table_change}
-                    />
+                                        
+                    {this.props.expandedRowRender == undefined ? (
+                        <Table
+                            style={{ marginTop: '16px' }}
+                            pagination={paginationProps}
+                            rowKey={record => record[this.props.row_key]}
+                            rowSelection={this.props.checkBox == undefined ? rowSelection : this.props.checkBox ? this.props.checkBox : undefined}
+                            columns={this.props.table_content}
+                            dataSource={this.state.data}
+                            scroll={{ x: this.props.table_content.map(item => item.width).reduce((accumulator, currentValue) => accumulator + currentValue) + 200, y: 480 }}
+                            loading={tableLoading}
+                            onChange={this.handle_table_change}
+                        />
+                    ) : (
+                        <Table
+                            style={{ marginTop: '16px' }}
+                            pagination={paginationProps}
+                            rowKey={record => record[this.props.row_key]}
+                            rowSelection={this.props.checkBox == undefined ? rowSelection : this.props.checkBox ? this.props.checkBox : undefined}
+                            columns={this.props.table_content}
+                            expandedRowRender={ record => this.props.expandedRowRender(record) }
+                            dataSource={this.state.data}
+                            scroll={{ x: this.props.table_content.map(item => item.width).reduce((accumulator, currentValue) => accumulator + currentValue) + 200, y: 480 }}
+                            loading={tableLoading}
+                            onChange={this.handle_table_change}
+                        />
+                    )}
                 </div>
             </div>
         );

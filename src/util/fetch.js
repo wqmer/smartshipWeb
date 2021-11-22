@@ -51,22 +51,22 @@ axios.interceptors.response.use(function (res) {
 //   })
 
 
-export function get(url) {
+export function Get(url) {
     return axios.get(url, config)
 }
 
-export function post(url, data) {
+export function Post(url, data) {
     return axios.post(url, data, config)
 }
 
-export function remove(url, data) {
+export function Put(url, data) {
+  return axios.put(url, data, config)
+}
+
+export function Remove(url, data) {
     return axios.delete(url, config)
 }
 
-export function patch(url, data) {
+export function Patch(url, data) {
     return axios.patch(url, data, config)
 }
-
-// export function PromisePost(url, data) {
-//     return Promise.resolve( axios.post(url, data, config) )
-// }

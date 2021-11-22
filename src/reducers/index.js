@@ -1,7 +1,5 @@
 
 import {combineReducers} from 'redux'
-import {reducer as file} from './handleFile'
-import user from './user'
 import shipping_platform_user from './shipping_platform/user'
 import shipping_platform_single_order from './shipping_platform/single_order_form'
 import shipping_platform_tool from './shipping_platform/tool'
@@ -65,8 +63,6 @@ export function reducer(state = initialState, action) {
 
 export default combineReducers({
        globalState: reducer,
-    //    file,
-    //    user,
        shipping_platform_user,
        shipping_platform_single_order,
        shipping_platform_tool

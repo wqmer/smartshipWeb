@@ -595,9 +595,7 @@ class ShippingCarrier extends React.Component {
               >
                 <Input />
               </Form.Item>
-
-
-              {ShippingCarrierFieldAsset["this.state.carrierCode"].map(item => { 
+              {ShippingCarrierFieldAsset[this.state.carrierCode].map(item => { 
                 <Form.Item
                   label={ item.name }
                   name={ item.name }
@@ -606,7 +604,6 @@ class ShippingCarrier extends React.Component {
                   <Input />
                 </Form.Item>
               })}
-
             </Form>
           </Modal>
           <Modal

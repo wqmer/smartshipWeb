@@ -11,6 +11,7 @@ import MenuTop from "../../components/MenuTop"
 import Order_page from "./order_page"
 import Client_page from "./client_page"
 import Dashboard_page from "./dashborad_page"
+import FinancePage from "./finance_page"
 import Ticket_page from "./ticket_page"
 import SettingPage from "./setting_page"
 import pagesSwitchRouter from "../../asset/home_page"
@@ -25,8 +26,6 @@ class Home extends Component {
 
   constructor(props) {
     super(props)
-
-    console.log(this.props.forwarder_info.forwarder_name)
 
     this.eventSource = new EventSource("http://localhost:8081/api/forwarder/event")
   }
@@ -278,6 +277,15 @@ class Home extends Component {
                         </div>
                       )}
                     />
+
+                    <Route path={`${url}/finance/`}
+                      render={(props) => (
+                        <FinancePage
+                          {...props}
+                          onRef={this.onRef}
+                        />
+                      )}
+                    />  
 
                     <Route path={`${url}/ticket/`}
                       render={(props) => (

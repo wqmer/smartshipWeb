@@ -310,7 +310,7 @@ export function* submit_draft_flow() {
     while (true) {
         //payload 来自前端的object , payload 包含 actiion type ，data 以及附属数据
         let payload = yield take(user_order_action.UPDATE_ORDER);
-        let res = yield call(submit_draft, payload.data);
+        let res = yield call(submit_, payload.data);
         if (res) {
             let message = ""
             res.code == 0 ? message = "更新成功" : message = res.message

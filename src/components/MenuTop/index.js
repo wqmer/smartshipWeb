@@ -16,7 +16,7 @@ class MenuTop extends React.Component {
       "warehouse": `/forwarder/${e.key}/ship`,
       "order": `/forwarder/${e.key}/draft`,
       "client": `/forwarder/${e.key}/activated`,
-      "finance": `/forwarder/${e.key}/transaction_list`,
+      "ledger": `/forwarder/${e.key}/list`,
       "ticket": `/forwarder/${e.key}/list`,
       "setting": `/forwarder/${e.key}/shipping_carrier`
     }
@@ -47,9 +47,9 @@ class MenuTop extends React.Component {
           <TeamOutlined />
           客户管理
         </Menu.Item>
-        <Menu.Item key="finance" >
+        <Menu.Item key="ledger" >
           <DollarOutlined />
-          财务中心
+          账目中心
         </Menu.Item>
         <Menu.Item key="ticket" >
           <AppstoreAddOutlined />

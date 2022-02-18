@@ -44,7 +44,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import NotFound from '../../../components/notFound'
 
-
 const { Search } = Input;
 const { TabPane } = Tabs;
 const { RangePicker } = DatePicker;
@@ -62,7 +61,7 @@ const finance = () => {
                     <a onClick={() => console.log(123)}>
                         <Statistic
                             style={{ display: "inline-block" }}
-                            title="交易额"
+                            title="账目额"
                             value={5023023}
                             suffix={<span style ={{fontSize: 14 }}>USD<span style={{ marginLeft: 3, color: '#cf1322', fontSize: 14 }}> <ArrowDownOutlined /> 200%</span></span>}
                         />

@@ -11,7 +11,7 @@ import MenuTop from "../../components/MenuTop"
 import Order_page from "./order_page"
 import Client_page from "./client_page"
 import Dashboard_page from "./dashborad_page"
-import FinancePage from "./finance_page"
+import LedgerPage from "./ledger_page"
 import Ticket_page from "./ticket_page"
 import SettingPage from "./setting_page"
 import pagesSwitchRouter from "../../asset/home_page"
@@ -278,9 +278,9 @@ class Home extends Component {
                       )}
                     />
 
-                    <Route path={`${url}/finance/`}
+                    <Route path={`${url}/ledger/`}
                       render={(props) => (
-                        <FinancePage
+                        <LedgerPage
                           {...props}
                           onRef={this.onRef}
                         />

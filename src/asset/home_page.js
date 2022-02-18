@@ -88,6 +88,17 @@ const pagesSwitchRouter = (expr) => {
           { url: "/frozen_client", iconType: "exclamation-circle", name: "已停用", showInMenu: true }
         ]
       }
+    case "ledger":
+      return {
+        name: "账目管理",
+        iconType: undefined,
+        key: "ledger",
+        content: [
+          { url: "/add", iconType: "plus", name: "添加账目", showInMenu: true },
+          { url: "/detail", iconType: "eye", name: "账目详情", showInMenu: false },
+          { url: "/list", iconType: "dollar", name: "账目列表", showInMenu: true }
+        ]
+      }
     case "ticket":
       return {
         name: "工单管理",
@@ -96,7 +107,7 @@ const pagesSwitchRouter = (expr) => {
         content: [
           { url: "/add", iconType: "plus", name: "添加工单", showInMenu: true },
           { url: "/detail", iconType: "eye", name: "工单详情", showInMenu: false },
-          { url: "/list", iconType: "appstore-add", name: "工单列表", showInMenu: true }
+          { url: "/ist", iconType: "appstore-add", name: "工单列表", showInMenu: true }
         ]
       }
     case "setting":

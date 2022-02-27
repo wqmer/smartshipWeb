@@ -81,6 +81,8 @@ class LedgerList extends React.Component {
           switch (type) {
             case "label":
               return "运单"
+            case "balance":
+              return "充值"
             default:
               return "未知"
           }

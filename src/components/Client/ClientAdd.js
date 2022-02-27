@@ -6,7 +6,7 @@ import { Post } from "../../util/fetch"
 
 const { Option } = Select
 
-class LedgerAdd extends React.Component {
+class ClientAdd extends React.Component {
 
   state = {
     users: [],
@@ -18,8 +18,6 @@ class LedgerAdd extends React.Component {
   }
 
   componentDidMount = () => {
-    window.scrollTo(0, 0)
-    
     this.getUsers()
   }
 
@@ -132,4 +130,4 @@ class LedgerAdd extends React.Component {
   }
 }
 
-export default LedgerAdd
+export default ClientAdd

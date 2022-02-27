@@ -6,21 +6,30 @@ import { Post } from "../../util/fetch"
 
 const { Option } = Select
 
-class LedgerAdd extends React.Component {
+class ClientDetail extends React.Component {
+
+  ledgerId = ""
 
   state = {
     users: [],
     btnLoading: false
   }
 
+  formRef = React.createRef()
+
   constructor(props) {
     super(props)
+    
+    this.ledgerId = this.props.ledgerId
   }
 
   componentDidMount = () => {
-    window.scrollTo(0, 0)
-    
     this.getUsers()
+    this.getLedgerDetail()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    return true
   }
 
   getUsers() {
@@ -42,49 +51,57 @@ class LedgerAdd extends React.Component {
     })
   }
 
-  render() {
-    const btnLoading = this.state.btnLoading
+  getLedgerDetail(state = this.state) {
+    this.setState({ fetching: true })
 
-    const createLedger = (values) => {  
-      this.setState({ btnLoading: true })
+    Post("/forwarder/get_ledger", {
+      "_id": this.ledgerId,
+    }).then(payload => {
+      console.log(payload)
 
-      Post("/forwarder/add_ledger", {
-        "user": values.user,
-        "type": values.type,
-        "amount": values.amount
-      }).then(payload => {
-        console.log(payload)
-  
-        this.setState({
-          btnLoading: false
-        })
+      let detailFields = [
+        {
+          name: ["amount"],
+          value: payload.data.amount
+        },
+        {
+          name: ["type"],
+          value: payload.data.type
+        },
+        {
+          name: ["user"],
+          value: payload.data.user.user_name
+        }
+      ]
 
-        message.success("账目创建成功")
-
-        this.props.history.push({ pathname: `/forwarder/ledger/list` })
-
-      }).catch(error => {
-        console.log(error)
+      this.setState({
+        ...state,
+        fetching: false,
+        detailFields: detailFields
       })
-    }
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 
+  render() {
     return (
       <div>
         <PageHeader
           style={{boxShadow: "1px 1px 5px rgba(0,21,41,.1)", background: "#fff", height: 70}}
           title={
             <div>
-              <LegacyIcon style={{ marginRight: "8px" }} type="plus" />添加账目
+              <LegacyIcon style={{ marginRight: "8px" }} type="eye" />账目详情
             </div>
           }
         />
         <div style={{ padding: 36 }}>
           <Form
-            name="form-ledger-add"
-            className="form-ledger-add"
+            name="form-ledger-edit"
+            className="form-ledger-edit"
             style={{ width: 500 }}
-            onFinish={createLedger}
-          >
+            fields={this.state.detailFields}
+            >
             <Form.Item
                 name="user"
                 rules={[{ required: true, message: "请选择一个用户" }]}
@@ -119,17 +136,13 @@ class LedgerAdd extends React.Component {
                 name="amount"
                 rules={[{ required: true, message: "请添加金额" }]}
               >
-              <Input placeholder="金额" />
-            </Form.Item>
-            <Form.Item>
-              <Button type="primary" htmlType="submit" size="large" className="btn-add" loading={btnLoading}>
-                添加
-              </Button>
+              <Input />
             </Form.Item>
           </Form>
         </div>
-      </div>)
+      </div>
+    )
   }
 }
 
-export default LedgerAdd
+export default ClientDetail

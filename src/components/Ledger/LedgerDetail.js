@@ -24,6 +24,8 @@ class LedgerDetail extends React.Component {
   }
 
   componentDidMount = () => {
+    window.scrollTo(0, 0)
+
     this.getUsers()
     this.getLedgerDetail()
   }

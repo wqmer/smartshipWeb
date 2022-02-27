@@ -15,7 +15,7 @@ class MenuTop extends React.Component {
       "dashboard": `/forwarder/${e.key}/project_summary`,
       "warehouse": `/forwarder/${e.key}/ship`,
       "order": `/forwarder/${e.key}/draft`,
-      "client": `/forwarder/${e.key}/activated`,
+      "client": `/forwarder/${e.key}/list`,
       "ledger": `/forwarder/${e.key}/list`,
       "ticket": `/forwarder/${e.key}/list`,
       "setting": `/forwarder/${e.key}/shipping_carrier`

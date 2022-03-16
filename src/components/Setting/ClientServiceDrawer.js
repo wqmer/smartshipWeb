@@ -46,6 +46,7 @@ class ClientServiceDrawer extends React.Component {
           return (
             <div>
               <Switch 
+                size="small"
                 defaultChecked={serviceMap[key].status?true:false} 
                 onChange={(checked) => this.toggleServiceStatus(checked, serviceMap[key], index)} 
               />

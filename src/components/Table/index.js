@@ -568,9 +568,16 @@ class MyTable extends React.Component {
                   : undefined
               }
               columns={this.props.table_content}
-              expandedRowRender={(record) =>
-                this.props.expandedRowRender(record)
-              }
+              expandable={{
+                expandedRowRender: record => this.props.expandedRowRender(record),
+                rowExpandable: record => {
+                  if(record.parcel.parcelList.length > 1) {
+                    return true
+                  } else {
+                    return false
+                  }
+                }
+              }}
               dataSource={this.state.data}
               scroll={{
                 x:
@@ -592,23 +599,13 @@ class MyTable extends React.Component {
 }
 
 function mapStateToProps(state) {
-  // console.log(state)
   return {
-    isFetching: state.globalState.isFetching,
-    // draft_order: state.shipping_platform_user.order.result,
-    // order_count: state.shipping_platform_user.order.count
+    isFetching: state.globalState.isFetching
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return {
-    // get_order_count: bindActionCreators(actions_user_order.get_order_count, dispatch),
-    // get_all_order: bindActionCreators(actions_user_order.get_all_order, dispatch),
-    // submit_drafts: bindActionCreators(actions_user_order.update_order, dispatch),
-    // delete_drafts: bindActionCreators(actions_user_order.delete_orders, dispatch),
-    // reset_order_result: bindActionCreators(actions_user_order.reset_order_result, dispatch),
-    // set_order_count: bindActionCreators(actions_user_order.set_order_count, dispatch),
-  };
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTable);

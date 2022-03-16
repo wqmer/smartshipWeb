@@ -56,12 +56,9 @@ const mapRouterToComponent = (Ref) =>
                             //     </Tooltip>
                             // ),
                         },
-                        { title: "渠道", width: width_colum.medium, dataIndex: ["service", "carrier"], align: alignProp, key: "carrier", },
-                        { title: "用户名", width: width_colum.medium, dataIndex: ["user", "user_name"], align: alignProp, key: "user_name", },
-
-
-
-                        { title: "重量lb", dataIndex: ["parcel", "weight"], width: width_colum.short, align: alignProp, key: "Weight", },
+                        { title: "渠道", width: width_colum.medium, dataIndex: ["service", "carrier"], align: alignProp, key: "carrier" },
+                        { title: "用户名", width: width_colum.medium, dataIndex: ["user", "user_name"], align: alignProp, key: "user_name" },
+                        { title: "重量lb", dataIndex: ["parcel", "weight"], width: width_colum.short, align: alignProp, key: "Weight" },
                         { title: "收货邮编", width: width_colum.short, dataIndex: ["recipient", "zipcode"], align: alignProp, key: "recipient_zipcode", },
                         // { title: "产品sku", width: width_colum.medium, dataIndex: ["parcel", "sku"], align: "center", key: "parcel_sku", },
 
@@ -408,11 +405,22 @@ const mapRouterToComponent = (Ref) =>
                             },
                             render: orderId => (
                                 <Tooltip placement="topLeft" title={orderId}>
-                                    {orderId}
+                                  {orderId}
                                 </Tooltip>
                             ),
                         },
-                        { title: "渠道", width: width_colum.medium, dataIndex: ["service", "carrier"], align: alignProp, key: "carrier", },
+                        { 
+                            title: "渠道", 
+                            width: width_colum.long, 
+                            dataIndex: ["service", "asset"], 
+                            align: alignProp, key: "asset",
+                            render: record => (
+                                <div>
+                                  <span>{record.name}</span>&nbsp;
+                                  <img src={record.logo_url} style={{width: 20}} />
+                                </div>
+                            )
+                        },
                         { title: "运费金额", width: width_colum.medium, dataIndex: ["postage", "billing_amount", "total"], align: alignProp, key: "estimate_amount", },
                         { title: "用户名", width: width_colum.medium, dataIndex: ["user", "user_name"], align: alignProp, key: "user_name", },
                         { title: "重量lb", dataIndex: ["parcel", "weight"], width: width_colum.short, align: alignProp, key: "Weight", },
@@ -426,7 +434,7 @@ const mapRouterToComponent = (Ref) =>
                             },
                             render: orderId => (
                                 <Tooltip placement="topLeft" title={orderId}>
-                                    {orderId}
+                                  {orderId}
                                 </Tooltip>
                             ),
                         },

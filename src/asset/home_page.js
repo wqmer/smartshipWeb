@@ -83,7 +83,7 @@ const pagesSwitchRouter = (expr) => {
         key: "client",
         url: "/client",
         content: [
-          { url: "/activated", iconType: "snippets", name: "活跃客户", showInMenu: true },
+          { url: "/list", iconType: "team", name: "客户列表", showInMenu: true },
           { url: "/unactivate", iconType: "pushpin", name: "7天无登录", showInMenu: true },
           { url: "/frozen_client", iconType: "exclamation-circle", name: "已停用", showInMenu: true }
         ]
@@ -107,7 +107,7 @@ const pagesSwitchRouter = (expr) => {
         content: [
           { url: "/add", iconType: "plus", name: "添加工单", showInMenu: true },
           { url: "/detail", iconType: "eye", name: "工单详情", showInMenu: false },
-          { url: "/ist", iconType: "appstore-add", name: "工单列表", showInMenu: true }
+          { url: "/list", iconType: "appstore-add", name: "工单列表", showInMenu: true }
         ]
       }
     case "setting":

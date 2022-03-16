@@ -13,7 +13,9 @@ class ClientList extends React.Component {
   state = {
     fetching: true,
     showRecharge: false,
-    selectedUserId: ""
+    selectedUserId: "",
+    selectedUserName: "",
+    selectedBalance: 0
   }
 
   constructor(props) {
@@ -53,10 +55,12 @@ class ClientList extends React.Component {
       indicator: <Spin size="large" />
     }
 
-    const showRechargeModal = (userId) => {
+    const showRechargeModal = (userId, userName, balance) => {
       this.setState({ 
         showRecharge: true,
-        selectedUserId: userId
+        selectedUserId: userId,
+        selectedUserName: userName,
+        selectedBalance: balance
       })
     }
 
@@ -74,7 +78,7 @@ class ClientList extends React.Component {
           "amount": parseFloat(values.amount)
         })
         .then(payload => {
-          //console.log(payload)
+          console.log(payload)
 
           this.setState({ 
             submitting: false,
@@ -87,16 +91,16 @@ class ClientList extends React.Component {
     }
 
     const columns = [
-      { title: "用户ID", width: 100, dataIndex: "user_id", align: "left", key: "user_id" },
-      { title: "用户名", width: 100, dataIndex: "user_name", align: "left", key: "user_name" },
+      { title: "用户ID", width: 100, dataIndex: "user_id", align: "left", responsive: ['md'], key: "user_id" },
+      { title: "用户名", width: 100, dataIndex: "user_name", align: "left", responsive: ['md'], key: "user_name" },
       {
-        title: "余额", key: "balance", width: 150, dataIndex: "balance", align: "left",
+        title: "余额", key: "balance", width: 100, dataIndex: "balance", align: "left", responsive: ['md'],
         render: record => (
           <span>${record}</span>
         )
       },
       {
-        title: "类型", key: "status", width: 60, dataIndex: "status", align: "left",
+        title: "类型", key: "status", width: 50, dataIndex: "status", align: "left", responsive: ['md'],
         render: status => {
           switch (status) {
             case "activated":
@@ -107,10 +111,10 @@ class ClientList extends React.Component {
         }
       },
       {
-        title: "操作", key: "action", width: 100, align: "center",
+        title: "操作", key: "action", width: 100, align: "center", responsive: ['md'],
         fixed: "right",
         render: (text, record) => (
-          <Button type="link" onClick={() => showRechargeModal(record._id)} >充值</Button>          
+          <Button type="link" onClick={() => showRechargeModal(record._id, record.user_name, record.balance)} >充值</Button>          
         )
       }
     ]
@@ -133,7 +137,7 @@ class ClientList extends React.Component {
                 rowKey={record => record.ticket_id}
                 columns={columns}
                 dataSource={this.state.data}
-                scroll={{ x: columns.map(item => item.width).reduce((accumulator, currentValue) => accumulator + currentValue) + 200, y: 480 }}
+                scroll={{ x: columns.map(item => item.width).reduce((accumulator, currentValue) => accumulator + currentValue), y: 480 }}
                 loading={tableLoading}
               />
             </div>
@@ -141,6 +145,8 @@ class ClientList extends React.Component {
         </div>
         <RechargeModal 
           visible={this.state.showRecharge}
+          user_name={this.state.selectedUserName}
+          balance={this.state.selectedBalance}
           submitting={this.state.submitting}
           formOnFinish={formOnFinish}
           cancelReCharegeModal={cancelReCharegeModal} />

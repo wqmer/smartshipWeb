@@ -1,6 +1,6 @@
 import React from "react"
 import { Icon as LegacyIcon } from "@ant-design/compatible"
-import { List, Avatar, Form, Input, Button, Space, Spin, message, PageHeader, Empty } from "antd"
+import { List, Avatar, Form, Input, Button, Space, Spin, message, PageHeader, Empty, Row, Col } from "antd"
 import "@ant-design/compatible/assets/index.css"
 import { Put, Post } from "../../../util/fetch"
 
@@ -30,6 +30,7 @@ class TicketDetail extends React.Component {
   }
 
   componentDidMount = () => {
+    window.scrollTo(0, 0)
     this.getTicketDetail()
   }
 
@@ -145,85 +146,90 @@ class TicketDetail extends React.Component {
             </Button>
           }
         />
-        <div style={{ padding: 36 }}>
-          <Space direction="vertical" size="large" style={{ width: "100%" }} >
-            <List
-              loading={listLoading}
-              itemLayout="horizontal"
-              locale={{emptyText: 
-                <Empty
-                  image={Empty.PRESENTED_IMAGE_SIMPLE}
-                  description={
-                    <span>工单详情为空</span>
-                  }
+        <Row>
+          <Col span={20}>
+            <div style={{ padding: 36 }}>
+              <Space direction="vertical" size="large" style={{ width: "100%" }} >
+                <List
+                  loading={listLoading}
+                  itemLayout="horizontal"
+                  locale={{emptyText: 
+                    <Empty
+                      image={Empty.PRESENTED_IMAGE_SIMPLE}
+                      description={
+                        <span>工单详情为空</span>
+                      }
+                    >
+                    </Empty>}
+                  } 
+                  dataSource={this.state.messages}
+                  renderItem={item => {
+                    if (item.supporter) {
+                      return (
+                        <List.Item>
+                          <List.Item.Meta
+                            avatar={<Avatar style={{ color: "#f56a00", backgroundColor: "#fde3cf" }} size={40}>A</Avatar>}
+                            title="管理员"
+                            description={
+                              <div>
+                                <div>{item.body}</div>
+                                <div style={{float: "right"}}>{item.created_at}</div>
+                              </div>
+                            }
+                          />
+                        </List.Item>
+                      )
+                    } else {
+                      return (
+                        <List.Item>
+                          <List.Item.Meta
+                            avatar={<Avatar size={40}>U</Avatar>}
+                            title={this.state.user_name}
+                            description={
+                              <div>
+                                <div>{item.body}</div>
+                                <div style={{float: "right"}}>{item.created_at}</div>
+                              </div>
+                            }
+                          />
+                        </List.Item>
+                      )
+                    }
+                  }}
+                />
+                <Form
+                  ref={this.formRef}
+                  name="form-ticket-update"
+                  onFinish={this.updateTicket}
                 >
-                </Empty>}
-              } 
-              dataSource={this.state.messages}
-              renderItem={item => {
-                if (item.supporter) {
-                  return (
-                    <List.Item>
-                      <List.Item.Meta
-                        avatar={<Avatar style={{ color: "#f56a00", backgroundColor: "#fde3cf" }} size={40}>A</Avatar>}
-                        title="管理员"
-                        description={
-                          <div>
-                            <div>{item.body}</div>
-                            <div style={{float: "right"}}>{item.created_at}</div>
-                          </div>
-                        }
-                      />
-                    </List.Item>
-                  )
-                } else {
-                  return (
-                    <List.Item>
-                      <List.Item.Meta
-                        avatar={<Avatar size={40}>U</Avatar>}
-                        title={this.state.user_name}
-                        description={
-                          <div>
-                            <div>{item.body}</div>
-                            <div style={{float: "right"}}>{item.created_at}</div>
-                          </div>
-                        }
-                      />
-                    </List.Item>
-                  )
-                }
-              }}
-            />
-            <Form
-              ref={this.formRef}
-              name="form-ticket-update"
-              onFinish={this.updateTicket}
-            >
-              <Form.Item
-                name="message"
-                rules={[{ required: true, message: "请添加回复内容" }]}
-              >
-              <TextArea 
-                rows="6"
-                placeholder="添加回复内容"
-                disabled={disabled}
-                value=""
-              />
-            </Form.Item>
-            <Form.Item>
-              <Button 
-                type="primary" 
-                htmlType="submit" 
-                size="large" 
-                loading={btnUpdateLoading}
-                disabled={disabled}>
-                回复
-              </Button>
-            </Form.Item>
-          </Form>
-        </Space>
+                  <Form.Item
+                    name="message"
+                    rules={[{ required: true, message: "请添加回复内容" }]}
+                  >
+                  <TextArea 
+                    rows="6"
+                    placeholder="添加回复内容"
+                    disabled={disabled}
+                    value=""
+                  />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button 
+                      type="primary" 
+                      htmlType="submit" 
+                      size="large" 
+                      loading={btnUpdateLoading}
+                      disabled={disabled}>
+                      回复
+                    </Button>
+                  </Form.Item>
+                </Form>
+              </Space>
+            </div>
+          </Col>
+        </Row>  
       </div>
-    </div>)
+    )
   }
 }
 

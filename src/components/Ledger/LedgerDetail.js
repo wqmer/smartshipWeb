@@ -1,6 +1,6 @@
 import React from "react"
 import { Icon as LegacyIcon } from "@ant-design/compatible"
-import { Form, Input, Button, Select, message, PageHeader } from "antd"
+import { Form, Input, Descriptions, Select, PageHeader } from "antd"
 import "@ant-design/compatible/assets/index.css"
 import { Post } from "../../util/fetch"
 
@@ -11,7 +11,9 @@ class LedgerDetail extends React.Component {
   ledgerId = ""
 
   state = {
-    users: [],
+    type: "",
+    amount: "",
+    user_name: "",
     btnLoading: false
   }
 
@@ -26,31 +28,11 @@ class LedgerDetail extends React.Component {
   componentDidMount = () => {
     window.scrollTo(0, 0)
 
-    this.getUsers()
     this.getLedgerDetail()
   }
 
   componentDidUpdate(prevProps, prevState) {
     return true
-  }
-
-  getUsers() {
-    Post("forwarder/get_users", {
-    }).then(payload => {
-      var users = []
-
-      const users_data = payload.data.docs
-
-      users_data.forEach(function(user_data, index) {
-        let user = {label: user_data.user_name, value: user_data._id}
-        users.push(user)
-      })
-
-      this.setState({ users: users })
-
-    }).catch(error => {
-      console.log(error)
-    })
   }
 
   getLedgerDetail(state = this.state) {
@@ -59,27 +41,14 @@ class LedgerDetail extends React.Component {
     Post("/forwarder/get_ledger", {
       "_id": this.ledgerId,
     }).then(payload => {
-      console.log(payload)
-
-      let detailFields = [
-        {
-          name: ["amount"],
-          value: payload.data.amount
-        },
-        {
-          name: ["type"],
-          value: payload.data.type
-        },
-        {
-          name: ["user"],
-          value: payload.data.user.user_name
-        }
-      ]
+      //console.log(payload)
 
       this.setState({
         ...state,
         fetching: false,
-        detailFields: detailFields
+        type: payload.data.type,
+        amount: payload.data.amount,
+        user_name: payload.data.user.user_name
       })
     }).catch(error => {
       console.log(error)
@@ -87,6 +56,27 @@ class LedgerDetail extends React.Component {
   }
 
   render() {
+    let user_name = this.state.user_name
+
+    let type
+
+    switch (this.state.type) {
+      case "label":
+        type = "运单"
+        break
+      case "balance":
+        type = "充值"
+        break
+    }
+
+    let amount
+
+    if(this.state.amount > 0) {
+      amount = "$" + this.state.amount
+    } else {
+      amount = "-$" + Math.abs(this.state.amount)
+    }
+
     return (
       <div>
         <PageHeader
@@ -98,49 +88,11 @@ class LedgerDetail extends React.Component {
           }
         />
         <div style={{ padding: 36 }}>
-          <Form
-            name="form-ledger-edit"
-            className="form-ledger-edit"
-            style={{ width: 500 }}
-            fields={this.state.detailFields}
-            >
-            <Form.Item
-                name="user"
-                rules={[{ required: true, message: "请选择一个用户" }]}
-              >
-              <Select
-                showSearch
-                placeholder="请选择一个用户"
-                options={ this.state.users }
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-              >
-              </Select>
-            </Form.Item>
-            <Form.Item
-                name="type"
-                rules={[{ required: true, message: "请选择一项类型" }]}
-              >
-              <Select
-                showSearch
-                placeholder="请选择账目类型"
-                optionFilterProp="children"
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-              >
-                <Option value="label">运单</Option>
-              </Select>
-            </Form.Item>
-            <Form.Item
-                name="amount"
-                rules={[{ required: true, message: "请添加金额" }]}
-              >
-              <Input />
-            </Form.Item>
-          </Form>
+          <Descriptions>
+            <Descriptions.Item label="用户" span={24}>{ user_name }</Descriptions.Item>
+            <Descriptions.Item label="类型" span={24}>{ type }</Descriptions.Item>
+            <Descriptions.Item label="金额" span={24}>{ amount }</Descriptions.Item>
+          </Descriptions>
         </div>
       </div>
     )

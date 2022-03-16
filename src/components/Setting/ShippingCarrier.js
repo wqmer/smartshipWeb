@@ -19,6 +19,7 @@ class ShippingCarrier extends React.Component {
     footerButtons: [],
     clientServices: [],
     carrierServices: [],
+    statusLoading: [],
     servicesLoading: [],
     clientServicesLoading: [],
     selectedCarrierId: null,
@@ -63,10 +64,12 @@ class ShippingCarrier extends React.Component {
     .then(payload => {
       console.log(payload)
 
+      const statusLoading = []
       const servicesLoading = []
       const clientServicesLoading = []
 
-      payload.data.map(item => {       
+      payload.data.map(item => {  
+        statusLoading[item._id] = false
         servicesLoading[item._id] = false
         clientServicesLoading[item._id] = false
       })
@@ -74,6 +77,7 @@ class ShippingCarrier extends React.Component {
       this.setState({
         fetching: false,
         carriers: payload.data,
+        statusLoading: statusLoading,
         servicesLoading: servicesLoading,
         clientServicesLoading: clientServicesLoading
       })
@@ -227,12 +231,25 @@ class ShippingCarrier extends React.Component {
     }
     
     const toggleCarrierStatus = (checked, selectedCarrierId) => {
+      const statusLoading = this.state.statusLoading
+      statusLoading[selectedCarrierId] = true
+
+      this.setState({ 
+        statusLoading: statusLoading
+      })
+
       Put("/forwarder/update_carrier_status", {
         "_id": selectedCarrierId,
         "status": (checked)?"activated":"unactivated"
       })
       .then(payload => {
         console.log(payload)
+
+        statusLoading[selectedCarrierId] = false
+
+        this.setState({ 
+          statusLoading: statusLoading
+        })
       })
     }
 
@@ -436,6 +453,8 @@ class ShippingCarrier extends React.Component {
         align: "left",
         render: (text, record) => (
           <Switch 
+          size="small"
+          loading={this.state.statusLoading[record._id]}
           defaultChecked={getCheckedStatus(record.status)}
           onChange={(checked) => toggleCarrierStatus(checked, record._id)} />
         ) 

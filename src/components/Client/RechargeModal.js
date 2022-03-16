@@ -1,7 +1,7 @@
 import React from "react"
 import _ from "lodash"
 import "antd/dist/antd.css"
-import { Button, Form, Input, Modal } from "antd"
+import { Button, Form, Input, Modal, Row, Col, Space } from "antd"
 
 class RechargeModal extends React.Component {
 
@@ -33,6 +33,14 @@ class RechargeModal extends React.Component {
             <Button type="primary" form="rechargeDetail" loading={this.props.submitting} key="submit" htmlType="submit">确定</Button>
           ]}
         >
+          <Row>
+            <Col span={9} style={{textAlign: 'right'}}>客户:&nbsp;&nbsp;</Col>
+            <Col span={15}>{ this.props.user_name }</Col>
+          </Row>
+          <Row>
+            <Col span={9} style={{textAlign: 'right'}}>余额:&nbsp;&nbsp;</Col>
+            <Col span={15}>${ this.props.balance }</Col>
+          </Row>
           <Form
             name="rechargeDetail"
             //form={form}

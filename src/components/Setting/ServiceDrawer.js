@@ -1,33 +1,13 @@
 import React from "react"
 import _ from "lodash"
 import "antd/dist/antd.css"
-import { Switch, List, Drawer } from "antd"
+import { List, Drawer } from "antd"
 import { Put, Post } from "../../util/fetch"
+import LoadingSwitch from "../LoadingSwitch"
 
 class ServiceDrawer extends React.Component {
-  state = {
-    statusLoading: []
-  }
-
   constructor(props) {
     super(props)
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    console.log("xxxxxx")
-    console.log(this.props.services)
-
-    const statusLoading = []
-
-    if(this.props.services.length) {
-      this.props.services.map(item => {  
-        statusLoading[item._id] = false      
-      })
-
-      this.setState({
-        statusLoading: statusLoading
-      })
-    }
   }
 
   render() {
@@ -47,14 +27,7 @@ class ServiceDrawer extends React.Component {
       }
     }
 
-    const toggleServiceStatus = (checked, service) => {
-      const statusLoading = this.state.statusLoading
-      statusLoading[service._id] = true
-
-      this.setState({ 
-        statusLoading: statusLoading
-      })
-
+    const toggleServiceStatus = (element, checked, service) => {
       if(service._id == null) {
         Post("/forwarder/add_service", {
           "carrier": this.state.selectedCarrierId,
@@ -63,7 +36,9 @@ class ServiceDrawer extends React.Component {
           "description": service.description
         })
         .then(payload => {
-          console.log(payload)
+          element.setState({ 
+            loading: false
+          })
         })
       } else {
         Put("/forwarder/update_service", {
@@ -71,7 +46,9 @@ class ServiceDrawer extends React.Component {
           "status": getStatus(checked)
         })
         .then(payload => {
-          
+          element.setState({ 
+            loading: false
+          })
         })
       }
     }
@@ -90,11 +67,10 @@ class ServiceDrawer extends React.Component {
             renderItem={service => 
               <List.Item>
                 <span>{service.mail_class}</span>
-                <Switch 
+                <LoadingSwitch 
                   size="small"
-                  loading={this.state.statusLoading[service._id]}
-                  defaultChecked={getCheckedStatus(service.status)}
-                  onChange={(checked) => toggleServiceStatus(checked, service)} />
+                  checked={getCheckedStatus(service.status)}
+                  toggleStatus={(element, checked) => toggleServiceStatus(element, checked, service)} />
               </List.Item>
             }
           />

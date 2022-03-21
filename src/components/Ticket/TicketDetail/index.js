@@ -1,6 +1,6 @@
 import React from "react"
 import { Icon as LegacyIcon } from "@ant-design/compatible"
-import { List, Avatar, Form, Input, Button, Space, Spin, message, PageHeader, Empty, Row, Col } from "antd"
+import { List, Avatar, Form, Input, Button, Space, Spin, message, PageHeader, Empty, Row, Col, Switch } from "antd"
 import "@ant-design/compatible/assets/index.css"
 import { Put, Post } from "../../../util/fetch"
 
@@ -13,9 +13,10 @@ class TicketDetail extends React.Component {
 
   state = {
     messages: [],
-    status: "",
     userName: "",
     fetching: true,
+    tickedClosed: false,
+    switchLoading: false,
     btnUpdateLoading: false,
     btnCloseToggleLoading: false
   }
@@ -34,23 +35,19 @@ class TicketDetail extends React.Component {
     this.getTicketDetail()
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    return true
-  }
-
   getTicketDetail(state = this.state) {
     this.setState({ fetching: true })
 
     Post("/forwarder/get_ticket", {
       "_id": this.ticketId,
     }).then(payload => {
-      //console.log(payload)
+      console.log(payload)
 
       this.setState({
         ...state,
         fetching: false,
-        status: payload.data.status,
         messages: payload.data.messages,
+        tickedClosed: payload.data.status,
         userName: payload.data.user.user_name
       })
     }).catch(error => {
@@ -80,46 +77,27 @@ class TicketDetail extends React.Component {
     })
   }
 
-  openTicket = () => {
-    this.setState({ btnCloseToggleLoading: true })
+  toggleTicketStatus = (checked) => {
+    this.setState({ switchLoading: true })
 
     Put("/forwarder/update_ticket", {
       "_id": this.ticketId,
       "supporter": this.supporter,
-      "status": "created"
+      "status": (checked)?"created":"closed"
     }).then(payload => {
-      this.setState({
-        status: "created",
-        btnCloseToggleLoading: false
+      console.log(payload)
+
+      this.setState({ 
+        switchLoading: false,
+        tickedClosed: !checked
       })
-
-      message.success("工单已打开")
-    }).catch(error => {
-      console.log(error)
-    })
-  }
-
-  closeTicket = () => {
-    this.setState({ btnCloseToggleLoading: true })
-
-    Put("/forwarder/update_ticket", {
-      "_id": this.ticketId,
-      "supporter": this.supporter,
-      "status": "closed"
-    }).then(payload => {
-      this.setState({
-        status: "closed",
-        btnCloseToggleLoading: false
-      })
-
-      message.success("工单已关闭")
     }).catch(error => {
       console.log(error)
     })
   }
 
   render() {
-    const disabled = (this.state.status == "closed")?true:false
+    const tickedClosed = this.state.tickedClosed
     const btnUpdateLoading = this.state.btnUpdateLoading
 
     const listLoading = {
@@ -135,15 +113,6 @@ class TicketDetail extends React.Component {
             <div>
               <LegacyIcon style={{ marginRight: "8px" }} type="eye" />工单详情
             </div>
-          }
-          extra={
-            (disabled)? 
-            <Button type="primary" loading={this.state.btnCloseToggleLoading} onClick={() => this.openTicket()}>
-              打开工单
-            </Button> : 
-            <Button type="primary" danger loading={this.state.btnCloseToggleLoading} onClick={() => this.closeTicket()}>
-              关闭工单
-            </Button>
           }
         />
         <Row>
@@ -184,7 +153,7 @@ class TicketDetail extends React.Component {
                         <List.Item>
                           <List.Item.Meta
                             avatar={<Avatar size={40}>U</Avatar>}
-                            title={this.state.user_name}
+                            title={this.state.userName}
                             description={
                               <div>
                                 <div>{item.body}</div>
@@ -209,20 +178,34 @@ class TicketDetail extends React.Component {
                   <TextArea 
                     rows="6"
                     placeholder="添加回复内容"
-                    disabled={disabled}
+                    disabled={tickedClosed}
                     value=""
                   />
                   </Form.Item>
-                  <Form.Item>
-                    <Button 
-                      type="primary" 
-                      htmlType="submit" 
-                      size="large" 
-                      loading={btnUpdateLoading}
-                      disabled={disabled}>
-                      回复
-                    </Button>
-                  </Form.Item>
+                  <Row>
+                    <Col span={12}>
+                      <Form.Item>
+                        <Button 
+                          type="primary" 
+                          htmlType="submit" 
+                          size="large" 
+                          loading={btnUpdateLoading}
+                          disabled={tickedClosed}>
+                          回复
+                        </Button>
+                      </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                      <Switch 
+                        size="large"
+                        checkedChildren="关闭工单" 
+                        unCheckedChildren="打开工单" 
+                        loading={this.state.switchLoading}
+                        onChange={this.toggleTicketStatus}  
+                        style={{float: "right", marginTop: 6}}
+                      />
+                    </Col>
+                  </Row>
                 </Form>
               </Space>
             </div>

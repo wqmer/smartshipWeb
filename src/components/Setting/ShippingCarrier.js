@@ -86,6 +86,9 @@ class ShippingCarrier extends React.Component {
       "_id": _id
     })
     .then(payload => {
+
+      console.log(payload)
+
       let type = payload.data.type
       let asset = payload.data.asset
       let account_information = asset.account_information
@@ -554,7 +557,7 @@ class ShippingCarrier extends React.Component {
               </Form.Item>
               {ShippingCarrierFieldAsset[this.state.carrierCode].map(item => { 
                 return(<Form.Item
-                  label={ item.name }
+                  label={ item.label }
                   name={ item.name }
                   rules={[{ required: true, message: "请输入信息!" }]}
                 >

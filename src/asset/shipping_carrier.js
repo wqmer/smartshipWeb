@@ -1,17 +1,17 @@
 
 const ShippingCarrierFieldAsset = {   
   "UPS": [
-    { name: "Username" },
-    { name: "Password" },
-    { name: "Access Key" },
-    { name: "Account NO" }
+    { label: "Username", name: "Username" },
+    { label: "Password", name: "Password" },
+    { label: "Access Key", name: "AccessKey" },
+    { label: "Account NO", name: "AccountNo" }
   ],
   "FEDEX": [
-    { name: "Account Number" },
-    { name: "Password" },
-    { name: "Key" },
-    { name: "Meter Number" },
-    { name: "HubId" }  
+    { label: "Account Number", name: "AccountNumber" },
+    { label: "Password", name: "Password" },
+    { label: "Key", name: "Key" },
+    { label: "Meter Number", name: "MeterNumber" },
+    { label: "HubId", name: "HubId" }  
   ] 
 }
 

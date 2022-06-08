@@ -22,9 +22,6 @@ import { actions } from '../../../reducers/order'
 // import { shipping_user_actions } from '../../../reducers/shipping_platform/user'
 import { actions as actions_user_order } from '../../../reducers/shipping_platform/user/order'
 
-// import MyTable from './table'
-// import Filter from './filter'
-
 import MyTable from '../../../components/Table'
 import dashboard_page_asset from '../../../asset/dashboard_page'
 import Demo_chart from '../../../components/Chart'

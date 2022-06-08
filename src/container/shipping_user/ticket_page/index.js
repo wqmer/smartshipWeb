@@ -1,6 +1,6 @@
 import React, { Component } from "react"
-import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux"
+import { Route, Switch } from "react-router-dom"
 import NotFound from "../../../components/notFound"
 import TicketAdd from "../../../components/Ticket/TicketAdd"
 import TicketList from "../../../components/Ticket/TicketList"

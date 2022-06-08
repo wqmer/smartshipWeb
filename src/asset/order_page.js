@@ -56,12 +56,9 @@ const mapRouterToComponent = (Ref) =>
                             //     </Tooltip>
                             // ),
                         },
-                        { title: "渠道", width: width_colum.medium, dataIndex: ["service", "carrier"], align: alignProp, key: "carrier", },
-                        { title: "用户名", width: width_colum.medium, dataIndex: ["user", "user_name"], align: alignProp, key: "user_name", },
-
-
-
-                        { title: "重量lb", dataIndex: ["parcel", "weight"], width: width_colum.short, align: alignProp, key: "Weight", },
+                        { title: "渠道", width: width_colum.medium, dataIndex: ["service", "carrier"], align: alignProp, key: "carrier" },
+                        { title: "用户名", width: width_colum.medium, dataIndex: ["user", "user_name"], align: alignProp, key: "user_name" },
+                        { title: "重量lb", dataIndex: ["parcel", "weight"], width: width_colum.short, align: alignProp, key: "Weight" },
                         { title: "收货邮编", width: width_colum.short, dataIndex: ["recipient", "zipcode"], align: alignProp, key: "recipient_zipcode", },
                         // { title: "产品sku", width: width_colum.medium, dataIndex: ["parcel", "sku"], align: "center", key: "parcel_sku", },
 
@@ -298,27 +295,6 @@ const mapRouterToComponent = (Ref) =>
                         { title: "重量lb", dataIndex: ["parcel", "weight"], width: width_colum.short, align: alignProp, key: "Weight", },
                         { title: "收货州", width: width_colum.short, dataIndex: ["recipient", "state"], align: alignProp, key: "recipient_state", },
                         { title: "收货邮编", width: width_colum.short, dataIndex: ["recipient", "zipcode"], align: alignProp, key: "recipient_zipcode", },
-
-                        // { title: "产品sku", width: width_colum.medium, dataIndex: ["parcel", "sku"], align: "center", key: "parcel_sku", },
-                        // { title: "收货城市", width: width_colum.short, dataIndex: ["recipient" , "city"], align: "center", key: "recipient_city", },
-
-                        // {
-                        //     title: "收货地址",
-                        //     width: width_colum.medium,
-                        //     dataIndex: ["recipient" , "add1"],
-                        //     align: "center",
-                        //     key: "recipient_add1",
-                        //     render: (text, row) => { return (text + " " + row.recipient.add2) }
-                        // },
-                        // { title: "收件人", width: width_colum.short, dataIndex: ["recipient", "recipient_name"], align: alignProp, key: "Name" },
-                        // {
-                        //     title: "尺寸", width: width_colum.medium,
-                        //     dataIndex: "Reference2",
-                        //     align: "center",
-                        //     key: "Reference2",
-                        //     render: (text, row) => { return (row.parcel.length + " x " + row.parcel.width + " x " + row.parcel.height) }
-                        // },
-
                         { title: "创建时间", width: width_colum.medium, dataIndex: "created_at", align: alignProp, key: "created_at", },
                         {
                             title: "系统订单号", width: width_colum.long, dataIndex: "order_id", align: alignProp, key: "order_id",
@@ -341,10 +317,6 @@ const mapRouterToComponent = (Ref) =>
                                     }
 
                                     }>查看</a>
-                                    {/* <Divider type="vertical" />
-                            <a type="defa" >编辑</a>
-                            <Divider type="vertical" />
-                            <a type="defa" onClick={() => this.child.handle_action(record.order_id, "cancel")} >撤销</a> */}
                                 </span>
                             )
                         }
@@ -377,16 +349,9 @@ const mapRouterToComponent = (Ref) =>
                             tag: "发件地址",
                             value: { test: undefined },
                             api_request_payload: function (start = undefined, end = undefined) { return ({ "created_at": { "$gte": start, "$lte": end } }) },
-                            poperty: { placeholder: "发件地址，可多选" }
-                        },
-
-                        // { component: "select_tag", tag: "发货渠道", poperty: { placeholder: "选择渠道，可多选" } },
-                        // { component: "select_tag", tag: "渠道", poperty : { placeholder: "" } }
-                    ],
-                    // "button": {
-                    //     "action": ["submit", "delete"],
-                    //     "batch": ["批量递交", "批量删除"]
-                    // }
+                            poperty: { placeholder: "发件地址, 可多选" }
+                        }
+                    ] 
                 }
             }
         },
@@ -399,20 +364,31 @@ const mapRouterToComponent = (Ref) =>
                         "get_data_pignate": "/forwarder/get_orders"
                     },
                     "row_key": "order_id",
-                    "table_content": [
+                    "table_content": [ 
                         {
-                            title: "参考订单号", width: width_colum.longest, dataIndex: "customer_order_id", key: "customer_order_id",
+                            title: "参考订单号", width: width_colum.longest, dataIndex: ["parcel", "parcelList"], key: "customer_order_id",
                             align: alignProp,
                             ellipsis: {
                                 showTitle: false,
                             },
-                            render: orderId => (
-                                <Tooltip placement="topLeft" title={orderId}>
-                                    {orderId}
-                                </Tooltip>
+                            render: parcelList => (
+                                <span>
+                                  {parcelList[0]["tracking_numbers"][0]}
+                                </span>
                             ),
                         },
-                        { title: "渠道", width: width_colum.medium, dataIndex: ["service", "carrier"], align: alignProp, key: "carrier", },
+                        { 
+                            title: "渠道", 
+                            width: width_colum.long, 
+                            dataIndex: ["service", "asset"], 
+                            align: alignProp, key: "asset",
+                            render: record => (
+                                <div>
+                                  <span>{record.name}</span>&nbsp;
+                                  <img src={record.logo_url} style={{width: 20}} />
+                                </div>
+                            )
+                        },
                         { title: "运费金额", width: width_colum.medium, dataIndex: ["postage", "billing_amount", "total"], align: alignProp, key: "estimate_amount", },
                         { title: "用户名", width: width_colum.medium, dataIndex: ["user", "user_name"], align: alignProp, key: "user_name", },
                         { title: "重量lb", dataIndex: ["parcel", "weight"], width: width_colum.short, align: alignProp, key: "Weight", },
@@ -426,7 +402,7 @@ const mapRouterToComponent = (Ref) =>
                             },
                             render: orderId => (
                                 <Tooltip placement="topLeft" title={orderId}>
-                                    {orderId}
+                                  {orderId}
                                 </Tooltip>
                             ),
                         },
@@ -437,13 +413,7 @@ const mapRouterToComponent = (Ref) =>
                                 <span>
                                     <a type="defa" onClick={() => {
                                         Ref.props.history.push({ pathname: `/forwarder/order/draft/detail/${record.order_id}`, order: record, order_id: record.order_id })
-                                    }
-
-                                    }>查看</a>
-                                    {/* <Divider type="vertical" />
-                            <a type="defa" >编辑</a>
-                            <Divider type="vertical" />
-                            <a type="defa" onClick={() => this.child.handle_action(record.order_id, "cancel")} >撤销</a> */}
+                                    }}>查看</a>
                                 </span>
                             )
                         }
@@ -456,6 +426,7 @@ const mapRouterToComponent = (Ref) =>
                                 { title: "金额", width: width_colum.medium, dataIndex: ["postage", "billing_amount", "total"], key: "amount" }
                             ]} 
                             dataSource={record.parcel.parcelList} 
+                            style={{marginLeft: 70}}
                             rowKey="_id"
                             pagination={false} 
                         />
@@ -474,7 +445,7 @@ const mapRouterToComponent = (Ref) =>
                             tag: "用户名",
                             value: { test: undefined },
                             api_request_payload: function (start = undefined, end = undefined) { return ({ "created_at": { "$gte": start, "$lte": end } }) },
-                            poperty: { placeholder: "用户名，可多选" }
+                            poperty: { placeholder: "用户名, 可多选" }
                         },
                         {
                             component: "search_bar",
@@ -489,19 +460,11 @@ const mapRouterToComponent = (Ref) =>
                             value: { test: undefined },
                             api_request_payload: function (start = undefined, end = undefined) { return ({ "created_at": { "$gte": start, "$lte": end } }) },
                             poperty: { placeholder: "发件地址，可多选" }
-                        },
-
-                        // { component: "select_tag", tag: "发货渠道", poperty: { placeholder: "选择渠道，可多选" } },
-                        // { component: "select_tag", tag: "渠道", poperty : { placeholder: "" } }
-                    ],
-                    // "button": {
-                    //     "action": ["submit", "delete"],
-                    //     "batch": ["批量递交", "批量删除"]
-                    // }
+                        }
+                    ]
                 }
             }
         },
-
         {
             "router": "failed",
             "component": {

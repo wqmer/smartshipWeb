@@ -1,8 +1,9 @@
 import React from "react"
 import _ from "lodash"
 import "antd/dist/antd.css"
-import { Switch, Table, Drawer } from "antd"
 import { Put } from "../../util/fetch"
+import { Table, Drawer } from "antd"
+import LoadingSwitch from "../LoadingSwitch"
 
 class ClientServiceDrawer extends React.Component {
   state = {
@@ -45,10 +46,10 @@ class ClientServiceDrawer extends React.Component {
           
           return (
             <div>
-              <Switch 
-                defaultChecked={serviceMap[key].status?true:false} 
-                onChange={(checked) => this.toggleServiceStatus(checked, serviceMap[key], index)} 
-              />
+              <LoadingSwitch 
+                  size="small"
+                  checked={serviceMap[key].status?true:false}
+                  toggleStatus={(element, checked) => this.toggleServiceStatus(element, checked, serviceMap[key], index)} />
             </div> 
         )}
       }
@@ -61,15 +62,18 @@ class ClientServiceDrawer extends React.Component {
     })    
   }
 
-  toggleServiceStatus = (checked, service, index) => {
+  toggleServiceStatus = (element, checked, service, index) => {
     const user = this.props.data[index]._id
-
     const service_id = service._id
 
     Put("/forwarder/update_service_auth_status", {
       "user": user,
       "service": [service_id],
       "action": (checked)?"enable":"disable"
+    }).then(payload => {
+      element.setState({ 
+        loading: false
+      })
     })
   }
 

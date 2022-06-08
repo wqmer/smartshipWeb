@@ -2,10 +2,11 @@ import React from "react"
 import _ from "lodash"
 import "antd/dist/antd.css"
 import { Icon as LegacyIcon } from "@ant-design/compatible"
-import { Spin, Button, Switch, Modal, Form, Input, Table, Select, PageHeader } from "antd"
+import { Spin, Button, Modal, Form, Input, Table, Select, PageHeader } from "antd"
 import { EditOutlined, SettingFilled, DeleteOutlined, PlusOutlined, ControlOutlined } from "@ant-design/icons"
 import { Post, Put } from "../../util/fetch"
 import ServiceDrawer from "./ServiceDrawer"
+import LoadingSwitch from "../LoadingSwitch"
 import ClientServiceDrawer from "./ClientServiceDrawer"
 import ShippingCarrierFieldAsset from "../../asset/shipping_carrier"
 
@@ -34,6 +35,8 @@ class ShippingCarrier extends React.Component {
     showClientServiceDrawer: false
   }
 
+  formRef = React.createRef()
+
   constructor(props) {
     super(props)
   }
@@ -61,12 +64,10 @@ class ShippingCarrier extends React.Component {
       
     Post("/forwarder/get_carriers")
     .then(payload => {
-      console.log(payload)
-
       const servicesLoading = []
       const clientServicesLoading = []
 
-      payload.data.map(item => {       
+      payload.data.map(item => {  
         servicesLoading[item._id] = false
         clientServicesLoading[item._id] = false
       })
@@ -85,7 +86,8 @@ class ShippingCarrier extends React.Component {
       "_id": _id
     })
     .then(payload => {
-      //console.log(payload)
+
+      console.log(payload)
 
       let type = payload.data.type
       let asset = payload.data.asset
@@ -160,8 +162,6 @@ class ShippingCarrier extends React.Component {
   }
 
   render() {
-    const formRef = React.createRef()
-
     const tableLoading = {
       spinning: this.state.fetching,
       indicator: <Spin size="large" />
@@ -195,7 +195,7 @@ class ShippingCarrier extends React.Component {
 
       if(selectedCarrierId === null) {
         renderFooterButtons("add")
-        formRef.current.resetFields()
+        this.formRef.current.resetFields()
       } else {
         renderFooterButtons("update")
         this.getShippingCarrier(selectedCarrierId)
@@ -218,44 +218,16 @@ class ShippingCarrier extends React.Component {
       }
     }
 
-    const getStatus = (status) => {
-      if(status) {
-        return "activated"
-      } else {
-        return "unactivated"
-      }
-    }
-    
-    const toggleCarrierStatus = (checked, selectedCarrierId) => {
+    const toggleCarrierStatus = (element, checked, selectedCarrierId) => {
       Put("/forwarder/update_carrier_status", {
         "_id": selectedCarrierId,
         "status": (checked)?"activated":"unactivated"
       })
       .then(payload => {
-        console.log(payload)
+        element.setState({ 
+          loading: false
+        })
       })
-    }
-
-    const toggleServiceStatus = (checked, service) => {
-      if(service._id == null) {
-        Post("/forwarder/add_service", {
-          "carrier": this.state.selectedCarrierId,
-          "mail_class": service.name,
-          "type": this.state.carrierServiceType,
-          "description": service.description
-        })
-        .then(payload => {
-          console.log(payload)
-        })
-      } else {
-        Put("/forwarder/update_service", {
-          "_id": service._id,
-          "status": getStatus(checked)
-        })
-        .then(payload => {
-          
-        })
-      }
     }
 
     const showService = (selectedCarrierId) => {
@@ -297,8 +269,6 @@ class ShippingCarrier extends React.Component {
         "carrier": selectedCarrierId
       })
       .then(payload => {
-        //console.log(payload)
-
         clientServicesLoading[selectedCarrierId] = false
 
         this.setState({ 
@@ -435,9 +405,10 @@ class ShippingCarrier extends React.Component {
         key: "status", 
         align: "left",
         render: (text, record) => (
-          <Switch 
-          defaultChecked={getCheckedStatus(record.status)}
-          onChange={(checked) => toggleCarrierStatus(checked, record._id)} />
+          <LoadingSwitch 
+            size="small"
+            checked={getCheckedStatus(record.status)}
+            toggleStatus={(element, checked) => toggleCarrierStatus(element, checked, record._id)} />
         ) 
       },
       { 
@@ -454,15 +425,6 @@ class ShippingCarrier extends React.Component {
     ]
 
     const setFormCarrierItem = (type = "UPS") => {
-
-      return (
-        <div>
-
-          
-        </div>
-      )
-
-      /*
       if(type == "UPS") {
         return (
           <div>
@@ -536,7 +498,7 @@ class ShippingCarrier extends React.Component {
             </Form.Item>
           </div>
         )
-      }  */
+      }
     } 
 
     return (
@@ -548,12 +510,10 @@ class ShippingCarrier extends React.Component {
               <LegacyIcon style={{ marginRight: "8px" }} type="branches" />配送渠道
             </div>
           }
-          extra={
-            <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => showDetailModal(null)} /> 
-          }
         />
         <div style={{ padding: 36 }}>
           <div style={{ boxShadow: "rgb(217, 217, 217) 1px 1px 7px 0px", padding: "10px 20px" }}>      
+            <Button type="primary" shape="circle" icon={<PlusOutlined />} onClick={() => showDetailModal(null)} /> 
             <Table
               style={{ marginTop: "16px" }}
               rowKey={record => record[this.props.row_key]}
@@ -569,7 +529,7 @@ class ShippingCarrier extends React.Component {
             footer={this.state.footerButtons}
           >
             <Form
-              ref={formRef}
+              ref={this.formRef}
               name="carrierDetail"
               labelCol={{ span: 9 }}
               wrapperCol={{ span: 15 }}
@@ -590,19 +550,19 @@ class ShippingCarrier extends React.Component {
               <Form.Item
                 label="名称"
                 name="nick_name"
-                value="sdfds"
+                value=""
                 rules={[{ required: true, message: "请输入名称!" }]}
               >
                 <Input />
               </Form.Item>
               {ShippingCarrierFieldAsset[this.state.carrierCode].map(item => { 
-                <Form.Item
-                  label={ item.name }
+                return(<Form.Item
+                  label={ item.label }
                   name={ item.name }
-                  rules={[{ required: true, message: "请输入xx!" }]}
+                  rules={[{ required: true, message: "请输入信息!" }]}
                 >
                   <Input />
-                </Form.Item>
+                </Form.Item>)
               })}
             </Form>
           </Modal>

@@ -1,8 +1,9 @@
 import React from "react"
 import _ from "lodash"
 import "antd/dist/antd.css"
-import { Switch, List, Drawer } from "antd"
+import { List, Drawer } from "antd"
 import { Put, Post } from "../../util/fetch"
+import LoadingSwitch from "../LoadingSwitch"
 
 class ServiceDrawer extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class ServiceDrawer extends React.Component {
       }
     }
 
-    const toggleServiceStatus = (checked, service) => {
+    const toggleServiceStatus = (element, checked, service) => {
       if(service._id == null) {
         Post("/forwarder/add_service", {
           "carrier": this.state.selectedCarrierId,
@@ -35,7 +36,9 @@ class ServiceDrawer extends React.Component {
           "description": service.description
         })
         .then(payload => {
-          console.log(payload)
+          element.setState({ 
+            loading: false
+          })
         })
       } else {
         Put("/forwarder/update_service", {
@@ -43,7 +46,9 @@ class ServiceDrawer extends React.Component {
           "status": getStatus(checked)
         })
         .then(payload => {
-          
+          element.setState({ 
+            loading: false
+          })
         })
       }
     }
@@ -62,9 +67,10 @@ class ServiceDrawer extends React.Component {
             renderItem={service => 
               <List.Item>
                 <span>{service.mail_class}</span>
-                <Switch 
-                  defaultChecked={getCheckedStatus(service.status)}
-                  onChange={(checked) => toggleServiceStatus(checked, service)} />
+                <LoadingSwitch 
+                  size="small"
+                  checked={getCheckedStatus(service.status)}
+                  toggleStatus={(element, checked) => toggleServiceStatus(element, checked, service)} />
               </List.Item>
             }
           />
